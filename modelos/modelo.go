@@ -129,6 +129,6 @@ func Atualizar(id_paciente int, nome_paciente, tipo_plano string, telefone_pacie
 	if err != nil {
 		panic(err.Error())
 	}
-	atualiza.Exec(nome_paciente, tipo_plano, telefone_paciente, cpf, email, senha, id_paciente)
+	atualiza.Exec(nome_paciente, tipo_plano, telefone_paciente, cidade_paciente, bairro_paciente, cpf_paciente, email_paciente, senha_paciente, id_paciente)
 	defer db.Close()
 }
