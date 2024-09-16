@@ -8,45 +8,47 @@ type LoginPaciente struct {
 	Tipo_plano        string
 	Telefone_paciente int
 	Cidade_paciente   string
-	bairro_paciente   string
+	Bairro_paciente   string
 	Cpf_paciente      int
 	Email_paciente    string
 	Senha_paciente    int
 }
 
-func Inseri(nome_paciente, tipo_plano string, telefone_paciente int, cpf int, email string, senha int) {
+func Inseri(nome_paciente, tipo_plano string, telefone_paciente int, cidade_paciente string, bairro_paciente string, cpf_paciente int, email_paciente string, senha_paciente int) {
 	db := db.Acesse()
 
-	inserir, err := db.Prepare("insert into login (nome, nomedamae, nomedopai, telefone, cpf, email, senha) values ($1, $2, $3, $4, $5, $6, $7)")
+	inserir, err := db.Prepare("insert into loginpaciente (nome_paciente, tipo_plano, telefone_paciente, cidade_paciente, bairro_paciente, cpf_paciente, email_paciente, senha_paciente) values ($1, $2, $3, $4, $5, $6, $7)")
 	if err != nil {
 		panic(err.Error())
 	}
 
-	inserir.Exec(nome_paciente, tipo_plano, telefone_paciente, cpf, email, senha)
+	inserir.Exec(nome_paciente, tipo_plano, telefone_paciente, cidade_paciente, bairro_paciente, cpf_paciente, email_paciente, senha_paciente)
 	defer db.Close()
 }
 
-func Buscar() []Login {
+func Buscar() []LoginPaciente {
 	db := db.Acesse()
 
-	selectReg, err := db.Query("select * from login")
+	selectReg, err := db.Query("select * from loginpaciente")
 	if err != nil {
 		panic(err.Error())
 	}
 
-	l := Login{}
-	logar := []Login{}
+	l := LoginPaciente{}
+	logar := []LoginPaciente{}
 
 	for selectReg.Next() {
 		var id_paciente int
 		var nome_paciente string
 		var tipo_plano string
 		var telefone_paciente int
-		var cpf int
-		var email string
-		var senha int
+		var cidade_paciente string
+		var bairro_paciente string
+		var cpf_paciente int
+		var email_paciente string
+		var senha_paciente int
 
-		err = selectReg.Scan(&id_paciente, &nome_paciente, &tipo_plano, &telefone_paciente, &cpf, &email, &senha)
+		err = selectReg.Scan(&id_paciente, &nome_paciente, &tipo_plano, &telefone_paciente, &cidade_paciente, &bairro_paciente, &cpf_paciente, &email_paciente, &senha_paciente)
 		if err != nil {
 			panic(err.Error())
 		}
@@ -55,9 +57,11 @@ func Buscar() []Login {
 		l.Nome_paciente = nome_paciente
 		l.Tipo_plano = tipo_plano
 		l.Telefone_paciente = telefone_paciente
-		l.CPF = cpf
-		l.Email = email
-		l.Senha = senha
+		l.Cidade_paciente = cidade_paciente
+		l.Bairro_paciente = bairro_paciente
+		l.Cpf_paciente = cpf_paciente
+		l.Email_paciente = email_paciente
+		l.Senha_paciente = senha_paciente
 
 		logar = append(logar, l)
 	}
@@ -70,7 +74,7 @@ func Buscar() []Login {
 func Deleta(id_paciente string) {
 	db := db.Acesse()
 
-	deletar, err := db.Prepare("delete from login where id_paciente=$1")
+	deletar, err := db.Prepare("delete from loginpaciente where id_paciente=$1")
 	if err != nil {
 		panic(err.Error())
 	}
@@ -80,23 +84,26 @@ func Deleta(id_paciente string) {
 
 }
 
-func Editar(id_paciente string) Login {
+func Editar(id_paciente string) LoginPaciente {
 	db := db.Acesse()
 
-	atualizar, err := db.Query("select * from login where id_paciente = $1", id_paciente)
+	atualizar, err := db.Query("select * from loginpaciente where id_paciente = $1", id_paciente)
 	if err != nil {
 		panic(err.Error())
 	}
 
-	Atualize := Login{}
+	Atualize := LoginPaciente{}
 
 	for atualizar.Next() {
 		var id_paciente int
 		var nome_paciente, tipo_plano string
-		var telefone_paciente, cpf int
-		var email string
-		var senha int
-		err = atualizar.Scan(&id_paciente, &nome_paciente, &telefone_paciente, &tipo_plano, &cpf, &email, &senha)
+		var telefone_paciente int
+		var cidade_paciente string
+		var bairro_paciente string
+		var cpf_paciente int
+		var email_paciente string
+		var senha_paciente int
+		err = atualizar.Scan(&id_paciente, &nome_paciente, &telefone_paciente, &tipo_plano, &cidade_paciente, &bairro_paciente, &cpf_paciente, &email_paciente, &senha_paciente)
 		if err != nil {
 			panic(err.Error())
 		}
@@ -104,19 +111,21 @@ func Editar(id_paciente string) Login {
 		Atualize.Nome_paciente = nome_paciente
 		Atualize.Tipo_plano = tipo_plano
 		Atualize.Telefone_paciente = telefone_paciente
-		Atualize.CPF = cpf
-		Atualize.Email = email
-		Atualize.Senha = senha
+		Atualize.Cidade_paciente = cidade_paciente
+		Atualize.Bairro_paciente = bairro_paciente
+		Atualize.Cpf_paciente = cpf_paciente
+		Atualize.Email_paciente = email_paciente
+		Atualize.Senha_paciente = senha_paciente
 	}
 
 	defer db.Close()
 	return Atualize
 }
 
-func Atualizar(id_paciente int, nome_paciente, tipo_plano string, telefone_paciente, cpf int, email string, senha int) {
+func Atualizar(id_paciente int, nome_paciente, tipo_plano string, telefone_paciente int, cidade_paciente string, bairro_paciente string, cpf_paciente int, email_paciente string, senha_paciente int) {
 	db := db.Acesse()
 
-	atualiza, err := db.Prepare("update login set nome_paciente=$1, tipo_plano=$2, telefone_paciente=$3, cpf=$4, cpf=$5, email=$6, senha=$7 where id_paciente=$8")
+	atualiza, err := db.Prepare("update loginpaciente set nome_paciente=$1, tipo_plano=$2, telefone_paciente=$3, cpf=$4, cpf=$5, email=$6, senha=$7 where id_paciente=$8")
 	if err != nil {
 		panic(err.Error())
 	}
