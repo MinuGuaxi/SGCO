@@ -125,7 +125,7 @@ func Editar(id_paciente string) LoginPaciente {
 func Atualizar(id_paciente int, nome_paciente, tipo_plano string, telefone_paciente int, cidade_paciente string, bairro_paciente string, cpf_paciente int, email_paciente string, senha_paciente int) {
 	db := db.Acesse()
 
-	atualiza, err := db.Prepare("update loginpaciente set nome_paciente=$1, tipo_plano=$2, telefone_paciente=$3, cidade_paciente=$4, bairro_paciente=$5, cpf_paciente=$6, email_paciente=$7, senha_paciente=$8 where id_paciente=$8")
+	atualiza, err := db.Prepare("update loginpaciente set nome_paciente=$1, tipo_plano=$2, telefone_paciente=$3, cidade_paciente=$4, bairro_paciente=$5, cpf_paciente=$6, email_paciente=$7, senha_paciente=$8 where id_paciente=$9")
 	if err != nil {
 		panic(err.Error())
 	}
