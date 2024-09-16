@@ -17,7 +17,7 @@ type LoginPaciente struct {
 func Inseri(nome_paciente, tipo_plano string, telefone_paciente int, cidade_paciente string, bairro_paciente string, cpf_paciente int, email_paciente string, senha_paciente int) {
 	db := db.Acesse()
 
-	inserir, err := db.Prepare("insert into loginpaciente (nome_paciente, tipo_plano, telefone_paciente, cidade_paciente, bairro_paciente, cpf_paciente, email_paciente, senha_paciente) values ($1, $2, $3, $4, $5, $6, $7)")
+	inserir, err := db.Prepare("insert into loginpaciente (nome_paciente, tipo_plano, telefone_paciente, cidade_paciente, bairro_paciente, cpf_paciente, email_paciente, senha_paciente) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)")
 	if err != nil {
 		panic(err.Error())
 	}
