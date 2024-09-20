@@ -116,7 +116,7 @@ func Editar(id_paciente string) LoginPaciente {
 
 	Atualize := LoginPaciente{}
 
-	//CRIA AS VARIAVEIS PARA INTERPRETAR VALORES
+	//CRIA AS VARIAVEIS PARA INTERPRETAR VALORES.
 	for atualizar.Next() {
 		var id_paciente int
 		var nome_paciente, tipo_plano string
