@@ -28,6 +28,16 @@ type LoginProfissional struct {
 	Senha_profissional    int
 }
 
+type Procedimento struct {
+	Id_procedimento        int
+	Nome_procedimento      string
+	Data_procedimento      string
+	Hora_procedimento      string
+	Tipo_procedimento      string
+	Valor_procedimento     string
+	Profissional_Designado string
+}
+
 //PACIENTE
 
 //CADASTRAR PACIENTE
@@ -291,5 +301,128 @@ func Atualizarprofissional(id_profissional int, nome_profissional, funcao_profis
 		panic(err.Error())
 	}
 	atualiza.Exec(nome_profissional, funcao_profissional, telefone_profissional, endereco_profissional, cidade_profissional, bairro_profissional, cpf_profissional, email_profissional, senha_profissional, id_profissional)
+	defer db.Close()
+}
+
+//PROCEDIMENTO
+
+//CADASTRAR PROCEDIMENTO
+func InseriProcedimento(nome_procedimento string, data_procedimento string, hora_procedimento string, tipo_procedimento string, valor_procedimento string, profissional_designado string) {
+	db := db.Acesse()
+
+	inserir, err := db.Prepare("insert into procedimento (nome_procedimento, data_procedimento, hora_procedimento, tipo_procedimento, valor_procedimento, profissional_designado) values ($1, $2, $3, $4, $5, $6, $7)")
+	if err != nil {
+		panic(err.Error())
+	}
+
+	inserir.Exec(nome_procedimento, data_procedimento, hora_procedimento, tipo_procedimento, valor_procedimento, profissional_designado)
+	defer db.Close()
+}
+
+//REALIZA UMA BUSCA PELO BANCO DE DADOS
+func BuscarProcedimento() []Procedimento {
+	db := db.Acesse()
+
+	selectReg, err := db.Query("select * from procedimento")
+	if err != nil {
+		panic(err.Error("Não foi possivel acessar o procedimento"))
+	}
+	//DEFINE A FORMA DE AUTENTICAÇÃO
+	l := Procedimento{}
+	logar := []Procedimento{}
+
+	for selectReg.Next() {
+		var id_procedimento int
+		var nome_procedimento string
+		var data_procedimento string
+		var hora_procedimento string
+		var tipo_procedimento string
+		var valor_procedimento string
+		var profissional_designado string
+
+		err = selectReg.Scan(&id_procedimento, &nome_procedimento, &data_procedimento, &hora_procedimento, &tipo_procedimento, &valor_procedimento, &profissional_designado)
+		if err != nil {
+			panic(err.Error())
+		}
+
+		l.Id_procedimento = id_procedimento
+		l.Nome_procedimento = nome_procedimento
+		l.Data_procedimento = data_procedimento
+		l.Hora_procedimento = hora_procedimento
+		l.Tipo_procedimento = tipo_procedimento
+		l.Valor_procedimento = valor_procedimento
+		l.Profissional_Designado = profissional_designado
+
+		logar = append(logar, l)
+	}
+
+	defer db.Close()
+	return logar
+
+}
+
+//DELETAR PROCEDIMENTO
+func DeletaProcedimento(id_procedimento string) {
+	db := db.Acesse()
+
+	deletar, err := db.Prepare("delete from procedimento where id_procedimento=$1")
+	if err != nil {
+		panic(err.Error("Não foi possivel deletar"))
+	}
+
+	deletar.Exec(id_procedimento)
+	defer db.Close()
+
+}
+
+//EDITAR PROCEDIMENTO
+func EditarProcedimento(id_procedimento string) Procedimento {
+	db := db.Acesse()
+
+	atualizar, err := db.Query("select * from procedimento where id_procedimento = $1", id_procedimento)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	Atualize := Procedimento{}
+
+	//CRIA AS VARIAVEIS PARA INTERPRETAR VALORES.
+	for atualizar.Next() {
+		var id_procedimento int
+		var nome_procedimento string
+		var data_procedimento string
+		var hora_procedimento string
+		var tipo_procedimento string
+		var valor_procedimento string
+		var profissional_designado string
+		//INTERPRETA OS DADOS DO BANCO, COLETANDO DADOS ATUAIS
+		err = atualizar.Scan(&id_procedimento, &nome_procedimento, &data_procedimento, &hora_procedimento, &tipo_procedimento, &valor_procedimento, &profissional_designado)
+		if err != nil {
+			panic(err.Error("Não foi possivel editar"))
+		}
+		//ATUALIZA O VALOR DAS VARIAVEIS
+		Atualize.Id_procedimento = id_procedimento
+		Atualize.Nome_procedimento = nome_procedimento
+		Atualize.Data_procedimento = data_procedimento
+		Atualize.Hora_procedimento = hora_procedimento
+		Atualize.Tipo_procedimento = tipo_procedimento
+		Atualize.Valor_procedimento = valor_procedimento
+		Atualize.Profissional_Designado = profissional_designado
+
+	}
+	//SALVA AS ALTERAÇÕES
+	defer db.Close()
+	return Atualize
+}
+
+//LANÇA AS ATUALIZAÇÕES DAS VARIAVEIS NO BANCO DE DADOS
+func AtualizarProcedimento(id_procedimento int, nome_procedimento string, data_procedimento string, hora_procedimento string, tipo_procedimento string, valor_procedimento string, profissional_designado string) {
+	db := db.Acesse()
+
+	atualiza, err := db.Prepare("update procedimento set nome_paciente=$1, data_procedimento=$2, hora_procedimento=$3, tipo_procedimento=$4, valor_procedimento=$5, profissional_designado=$6 where id_paciente=$7")
+	if err != nil {
+		panic(err.Error("Não foi possivel lançar as atualizações"))
+	}
+	atualiza.Exec(nome_procedimento, data_procedimento, hora_procedimento, tipo_procedimento, valor_procedimento, profissional_designado, id_procedimento)
 	defer db.Close()
 }
