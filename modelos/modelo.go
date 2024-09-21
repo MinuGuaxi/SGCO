@@ -293,4 +293,3 @@ func Atualizarprofissional(id_profissional int, nome_profissional, funcao_profis
 	atualiza.Exec(nome_profissional, funcao_profissional, telefone_profissional, endereco_profissional, cidade_profissional, bairro_profissional, cpf_profissional, email_profissional, senha_profissional, id_profissional)
 	defer db.Close()
 }
-.const
