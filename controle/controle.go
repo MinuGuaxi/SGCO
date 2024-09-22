@@ -3,7 +3,7 @@ package controle
 import (
 	"html/template"
 	"log"
-	"modulo/modelo"
+	"modulo/modelos"
 	"net/http"
 	"strconv"
 )
@@ -48,8 +48,9 @@ func Inserir(w http.ResponseWriter, r *http.Request) {
 			panic(err.Error())
 		}
 
+
 		modelo.Inseri(nome, nomedamae, nomedopai, convertelefone,
-			convertcpf, email, convertsenha)
+			convertsenha, convertcpf, email)
 	}
 
 	http.Redirect(w, r, "/listar.html", 301)
@@ -103,7 +104,7 @@ func Atualize(w http.ResponseWriter, r *http.Request) {
 		}
 
 		modelo.Atualizar(idConvertidaParaInt, nome, nomedamae, nomedopai,
-			convertelefone, convertcpf, email, convertsenha)
+			convertelefone, convertcpf, convertsenha, email)
 	}
 
 	http.Redirect(w, r, "/listar.html", 301)

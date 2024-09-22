@@ -325,7 +325,7 @@ func BuscarProcedimento() []Procedimento {
 
 	selectReg, err := db.Query("select * from procedimento")
 	if err != nil {
-		panic(err.Error("Não foi possivel acessar o procedimento"))
+		panic(err.Error())
 	}
 	//DEFINE A FORMA DE AUTENTICAÇÃO
 	l := Procedimento{}
@@ -367,7 +367,7 @@ func DeletaProcedimento(id_procedimento string) {
 
 	deletar, err := db.Prepare("delete from procedimento where id_procedimento=$1")
 	if err != nil {
-		panic(err.Error("Não foi possivel deletar"))
+		panic(err.Error())
 	}
 
 	deletar.Exec(id_procedimento)
@@ -398,7 +398,7 @@ func EditarProcedimento(id_procedimento string) Procedimento {
 		//INTERPRETA OS DADOS DO BANCO, COLETANDO DADOS ATUAIS
 		err = atualizar.Scan(&id_procedimento, &nome_procedimento, &data_procedimento, &hora_procedimento, &tipo_procedimento, &valor_procedimento, &profissional_designado)
 		if err != nil {
-			panic(err.Error("Não foi possivel editar"))
+			panic(err.Error())
 		}
 		//ATUALIZA O VALOR DAS VARIAVEIS
 		Atualize.Id_procedimento = id_procedimento
@@ -421,7 +421,7 @@ func AtualizarProcedimento(id_procedimento int, nome_procedimento string, data_p
 
 	atualiza, err := db.Prepare("update procedimento set nome_paciente=$1, data_procedimento=$2, hora_procedimento=$3, tipo_procedimento=$4, valor_procedimento=$5, profissional_designado=$6 where id_paciente=$7")
 	if err != nil {
-		panic(err.Error("Não foi possivel lançar as atualizações"))
+		panic(err.Error())
 	}
 	atualiza.Exec(nome_procedimento, data_procedimento, hora_procedimento, tipo_procedimento, valor_procedimento, profissional_designado, id_procedimento)
 	defer db.Close()
