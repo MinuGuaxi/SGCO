@@ -1,0 +1,131 @@
+*{
+    box-sizing: border-box;
+
+}
+
+body {
+    background-color: #d53a3a;
+}
+.container-principal {
+    display: flex;
+    flex-direction: column;
+}
+
+.container-secundario {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.container-conteudo {
+    display: flex;
+}
+
+.sidebar {
+    align-items: center;
+    border-radius: 10px 10px 10px 10px;
+    position: relative;
+    top: 0;
+    bottom: 0;
+    height: 90vh;
+    left: 0;
+    background: #fff;
+    width: 100px;
+    overflow: hidden;
+    padding: 0;
+    box-shadow: 0 20px 35px rgb(0, 0, 0, 0.1);
+    display: flex;
+    margin-right: 20px;
+}
+.ul-sidebar {
+    display: flex;
+    flex-direction: column;
+
+}
+.li-nav-item{
+    list-style-type: none;
+    margin: 0px;
+}
+.nav-item-1 {
+    padding-top: 100%;
+    padding-bottom: 100%;
+}
+.nav-item-2 {
+    padding-bottom: 50%;
+}
+.nav-item-3 {
+    padding-top: 50%;
+}
+.nav-item {
+    font-size: 30px;
+    color: black;
+}
+
+.navbar {
+    background-color: white;
+    height: 10vh;
+    display: flex;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 99%;
+    flex-direction: row;
+}
+.logo{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+
+.main-container {
+    border-radius: 10px;
+    width: 85vw;
+    height: 600px;
+    background-color: white
+}
+.config-tittle {
+    text-align: center;
+    padding-top: 1em;
+    
+}
+.ul-config-nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.config-nav {
+    background-color: snow;
+    list-style-type: none;
+    
+}
+
+.navbar li {
+    cursor: pointer; /* Make items clickable */
+}
+
+.navbar li.active {
+    background-color: #d53a3a;
+    color: white;
+}
+
+.navbar li.active::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: #fff;
+    transform: scaleX(0); /* Initially hidden */
+    transition: transform 0.3s ease-in-out;
+}
+
+.navbar li:hover::before {
+    transform: scaleX(1); /* Show the underline on hover */
+}
+.config-nav-item {
+    text-decoration: none;
+    color: black;
+}

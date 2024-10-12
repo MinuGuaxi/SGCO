@@ -2,16 +2,18 @@ package controle
 
 import (
 	"html/template"
-	"log"
-	"modulo/modelos"
+	modelo "modulo/modelos"
 	"net/http"
-	"strconv"
 )
 
 var tmp = template.Must(template.ParseGlob("templates/*.html"))
 
-func Index(w http.ResponseWriter, r *http.Request) {
-	tmp.ExecuteTemplate(w, "Index", nil)
+func Login(w http.ResponseWriter, r *http.Request) {
+	tmp.ExecuteTemplate(w, "Login", nil)
+}
+
+func Tela_Dashboard(w http.ResponseWriter, r *http.Request) {
+	http.Redirect(w, r, "Dashboard", http.StatusFound)
 }
 
 // PACIENTES
@@ -22,35 +24,32 @@ func Listar(w http.ResponseWriter, r *http.Request) {
 	tmp.ExecuteTemplate(w, "Listar", registros)
 }
 
+/*
 // Cadastrar novo paciente
 func Inserir(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
-		nome := r.FormValue("nome")
-		nomedamae := r.FormValue("nomedamae")
-		nomedopai := r.FormValue("nomedopai")
-		telefone := r.FormValue("telefone")
-		cpf := r.FormValue("cpf")
-		email := r.FormValue("email")
-		senha := r.FormValue("senha")
+		Nome_paciente := r.FormValue("Nome_paciente")
+		Tipo_plano := r.FormValue("Tipo_plano")
+		Telefone_paciente := r.FormValue("Telefone_paciente")
+		Endereco_paciente := r.FormValue("Endereco_paciente")
+		Cidade_paciente := r.FormValue("Cidade_paciente")
+		Bairro_paciente := r.FormValue("Bairro_paciente")
+		Cpf_paciente := r.FormValue("Cpf_paciente")
+		Email_paciente := r.FormValue("Email_paciente")
+		Senha_paciente := r.FormValue("Senha_paciente")
 
-		convertsenha, err := strconv.Atoi(senha)
+		convertsenha, err := strconv.Atoi(Senha_paciente)
 		if err != nil {
 			panic(err.Error())
 		}
 
-		convertelefone, err := strconv.Atoi(telefone)
+		convertelefone, err := strconv.Atoi(Telefone_paciente)
 		if err != nil {
 			panic(err.Error())
 		}
 
-		convertcpf, err := strconv.Atoi(cpf)
-		if err != nil {
-			panic(err.Error())
-		}
-
-
-		modelo.Inseri(nome, nomedamae, nomedopai, convertelefone,
-			convertsenha, convertcpf, email)
+		modelo.Inseri(Nome_paciente, Tipo_plano, convertelefone, Endereco_paciente, Cidade_paciente, Bairro_paciente, Email_paciente,
+			convertcpf, convertsenha)
 	}
 
 	http.Redirect(w, r, "/listar.html", 301)
@@ -74,43 +73,47 @@ func Edit(w http.ResponseWriter, r *http.Request) {
 // Atualiza as informações do paciente
 func Atualize(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
-		id := r.FormValue("id")
-		nome := r.FormValue("nome")
-		nomedamae := r.FormValue("nomedamae")
-		nomedopai := r.FormValue("nomedopai")
-		telefone := r.FormValue("telefone")
-		cpf := r.FormValue("cpf")
-		email := r.FormValue("email")
-		senha := r.FormValue("senha")
+		Id_paciente := r.FormValue("Id_paciente")
+		Nome_paciente := r.FormValue("Nome_paciente")
+		Tipo_plano := r.FormValue("Tipo_plano")
+		Telefone_paciente := r.FormValue("Telefone_paciente")
+		Endereco_paciente := r.FormValue("Endereco_paciente")
+		Cidade_paciente := r.FormValue("Cidade_paciente")
+		Bairro_paciente := r.FormValue("Bairro_paciente")
+		Cpf_paciente := r.FormValue("Cpf_paciente")
+		Email_paciente := r.FormValue("Email_paciente")
+		Senha_paciente := r.FormValue("Senha_paciente")
 
-		idConvertidaParaInt, err := strconv.Atoi(id)
+		idConvertidaParaInt, err := strconv.Atoi(Id_paciente)
 		if err != nil {
 			log.Println("Erro na convesão do ID para int:", err)
 		}
 
-		convertelefone, err := strconv.Atoi(telefone)
+		convertelefone, err := strconv.Atoi(Telefone_paciente)
 		if err != nil {
 			panic(err.Error())
 		}
 
-		convertcpf, err := strconv.Atoi(cpf)
+		convertcpf, err := strconv.Atoi(Cpf_paciente)
 		if err != nil {
 			panic(err.Error())
 		}
 
-		convertsenha, err := strconv.Atoi(senha)
+		convertsenha, err := strconv.Atoi(Senha_paciente)
 		if err != nil {
 			panic(err.Error())
 		}
 
-		modelo.Atualizar(idConvertidaParaInt, nome, nomedamae, nomedopai,
-			convertelefone, convertcpf, convertsenha, email)
+		modelo.Atualizar(idConvertidaParaInt, Nome_paciente, Tipo_plano, Endereco_paciente, Cidade_paciente, Bairro_paciente,
+			convertelefone, convertcpf, convertsenha, Email_paciente)
 	}
 
 	http.Redirect(w, r, "/listar.html", 301)
 
 }
+*/
 
+/*
 // Historico do paciente
 func Historico_Paciente() {
 
@@ -169,3 +172,5 @@ func Editar_Procedimentos() {
 func Atualizar_Procedimentos() {
 
 }
+
+*/
