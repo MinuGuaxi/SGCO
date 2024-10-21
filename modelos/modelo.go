@@ -1,6 +1,10 @@
 package modelo
 
-import "modulo/db"
+import (
+	"database/sql"
+	"fmt"
+	"modulo/db"
+)
 
 type LoginPaciente struct {
 	Id_paciente       int
@@ -18,7 +22,6 @@ type LoginPaciente struct {
 type LoginProfissional struct {
 	Id_profissional       int
 	Nome_profissional     string
-	Funcao_profissional   string
 	Telefone_profissional int
 	Endereco_profissional string
 	Cidade_profissional   string
@@ -40,20 +43,51 @@ type Procedimento struct {
 
 //PACIENTE
 
-//CADASTRAR PACIENTE
-func Inseri(nome_paciente, tipo_plano string, telefone_paciente int, endereco_paciente string, cidade_paciente string, bairro_paciente string, cpf_paciente int, email_paciente string, senha_paciente int) {
+// CADASTRAR PACIENTE
+func Inseri(Nome_paciente, tipo_plano string, telefone_paciente int, endereco_paciente string, cidade_paciente string, bairro_paciente string, cpf_paciente int, email_paciente string, senha_paciente int) {
 	db := db.Acesse()
 
-	inserir, err := db.Prepare("insert into loginpaciente (nome_paciente, tipo_plano, telefone_paciente, endereco_paciente, cidade_paciente, bairro_paciente, cpf_paciente, email_paciente, senha_paciente) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)")
+	inserir, err := db.Prepare("insert into loginpaciente (nome_paciente, tipo_plano, telefone_paciente, endereco_paciente, cidade_paciente, bairro_paciente, cpf_paciente, email_paciente, senha_paciente) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)")
 	if err != nil {
 		panic(err.Error())
 	}
 
-	inserir.Exec(nome_paciente, tipo_plano, telefone_paciente, endereco_paciente, cidade_paciente, bairro_paciente, cpf_paciente, email_paciente, senha_paciente)
+	inserir.Exec(Nome_paciente, tipo_plano, telefone_paciente, endereco_paciente, cidade_paciente, bairro_paciente, cpf_paciente, email_paciente, senha_paciente)
 	defer db.Close()
 }
 
 //AUTENTICAÇÃO DE USUÁRIO
+
+// Função de autenticação
+func AutenticaUsuario(Email_paciente string, Senha_paciente int) (bool, error) {
+	db := db.Acesse()
+
+	var senhaHash int
+	query := "SELECT senha_paciente FROM loginpaciente WHERE email_paciente=$1"
+	err := db.QueryRow(query, Email_paciente).Scan(&senhaHash)
+
+	if err != nil {
+		if err == sql.ErrNoRows {
+			// Usuário não encontrado
+			fmt.Println("Usuário não encontrado:", Email_paciente)
+			return false, nil
+		}
+		// Outro erro (ex: erro na query)
+		fmt.Println("Erro ao executar query:", err)
+		return false, err
+	}
+	fmt.Println("Senha encontrada:", senhaHash)
+	if senhaHash == Senha_paciente {
+		// Autenticado com sucesso
+		return true, nil
+	}
+
+	// Senha incorreta
+	fmt.Println("Senha incorreta para o email:", Email_paciente)
+	return false, nil
+}
+
+/*
 func Buscar() []LoginPaciente {
 	db := db.Acesse()
 
@@ -67,29 +101,15 @@ func Buscar() []LoginPaciente {
 
 	for selectReg.Next() {
 		var id_paciente int
-		var nome_paciente string
-		var tipo_plano string
-		var telefone_paciente int
-		var endereco_paciente string
-		var cidade_paciente string
-		var bairro_paciente string
-		var cpf_paciente int
 		var email_paciente string
 		var senha_paciente int
 
-		err = selectReg.Scan(&id_paciente, &nome_paciente, &tipo_plano, &telefone_paciente, &endereco_paciente, &cidade_paciente, &bairro_paciente, &cpf_paciente, &email_paciente, &senha_paciente)
+		err = selectReg.Scan(&id_paciente, &email_paciente, &senha_paciente)
 		if err != nil {
 			panic(err.Error())
 		}
 
 		l.Id_paciente = id_paciente
-		l.Nome_paciente = nome_paciente
-		l.Tipo_plano = tipo_plano
-		l.Telefone_paciente = telefone_paciente
-		l.Endereco_paciente = endereco_paciente
-		l.Cidade_paciente = cidade_paciente
-		l.Bairro_paciente = bairro_paciente
-		l.Cpf_paciente = cpf_paciente
 		l.Email_paciente = email_paciente
 		l.Senha_paciente = senha_paciente
 
@@ -100,7 +120,7 @@ func Buscar() []LoginPaciente {
 	return logar
 
 }
-
+*/
 //DELETAR USUÁRIO
 func Deleta(id_paciente string) {
 	db := db.Acesse()
@@ -115,7 +135,7 @@ func Deleta(id_paciente string) {
 
 }
 
-//EDITAR USUÁRIO
+// EDITAR USUÁRIO
 func Editar(id_paciente string) LoginPaciente {
 	db := db.Acesse()
 
@@ -159,7 +179,7 @@ func Editar(id_paciente string) LoginPaciente {
 	return Atualize
 }
 
-//LANÇA AS ATUALIZAÇÕES DAS VARIAVEIS NO BANCO DE DADOS
+// LANÇA AS ATUALIZAÇÕES DAS VARIAVEIS NO BANCO DE DADOS
 func Atualizar(id_paciente int, nome_paciente, tipo_plano string, telefone_paciente int, endereco_paciente string, cidade_paciente string, bairro_paciente string, cpf_paciente int, email_paciente string, senha_paciente int) {
 	db := db.Acesse()
 
@@ -173,7 +193,7 @@ func Atualizar(id_paciente int, nome_paciente, tipo_plano string, telefone_pacie
 
 //PROFISSIONAL
 
-//CADASTRAR PROFISSIONAL
+// CADASTRAR PROFISSIONAL
 func Inseriprofissional(nome_profissional, funcao_profissional string, telefone_profissional int, endereco_profissional string, cidade_profissional string, bairro_profissional string, cpf_profissional int, email_profissional string, senha_profissional int) {
 	db := db.Acesse()
 
@@ -186,7 +206,7 @@ func Inseriprofissional(nome_profissional, funcao_profissional string, telefone_
 	defer db.Close()
 }
 
-//AUTENTICAÇÃO DE USUÁRIO
+// AUTENTICAÇÃO DE USUÁRIO
 func Buscarprofissional() []LoginProfissional {
 	db := db.Acesse()
 
@@ -201,7 +221,6 @@ func Buscarprofissional() []LoginProfissional {
 	for selectReg.Next() {
 		var id_profissional int
 		var nome_profissional string
-		var funcao_profissional string
 		var telefone_profissional int
 		var endereco_profissional string
 		var cidade_profissional string
@@ -210,14 +229,13 @@ func Buscarprofissional() []LoginProfissional {
 		var email_profissional string
 		var senha_profissional int
 
-		err = selectReg.Scan(&id_profissional, &nome_profissional, &funcao_profissional, &telefone_profissional, &endereco_profissional, &cidade_profissional, &bairro_profissional, &cpf_profissional, &email_profissional, &senha_profissional)
+		err = selectReg.Scan(&id_profissional, &nome_profissional, &telefone_profissional, &endereco_profissional, &cidade_profissional, &bairro_profissional, &cpf_profissional, &email_profissional, &senha_profissional)
 		if err != nil {
 			panic(err.Error())
 		}
 
 		l.Id_profissional = id_profissional
 		l.Nome_profissional = nome_profissional
-		l.Funcao_profissional = funcao_profissional
 		l.Telefone_profissional = telefone_profissional
 		l.Endereco_profissional = endereco_profissional
 		l.Cidade_profissional = cidade_profissional
@@ -234,7 +252,7 @@ func Buscarprofissional() []LoginProfissional {
 
 }
 
-//DELETAR USUÁRIO
+// DELETAR USUÁRIO
 func Deletaprofissional(id_profissional string) {
 	db := db.Acesse()
 
@@ -248,7 +266,7 @@ func Deletaprofissional(id_profissional string) {
 
 }
 
-//EDITAR USUÁRIO
+// EDITAR USUÁRIO
 func Editarprofissional(id_profissional string) LoginProfissional {
 	db := db.Acesse()
 
@@ -262,7 +280,7 @@ func Editarprofissional(id_profissional string) LoginProfissional {
 	//CRIA AS VARIAVEIS PARA INTERPRETAR VALORES
 	for atualizar.Next() {
 		var id_profissional int
-		var nome_profissional, funcao_profissional string
+		var nome_profissional string
 		var telefone_profissional int
 		var endereco_profissional string
 		var cidade_profissional string
@@ -271,14 +289,13 @@ func Editarprofissional(id_profissional string) LoginProfissional {
 		var email_profissional string
 		var senha_profissional int
 		//INTERPRETA OS DADOS DO BANCO, COLETANDO DADOS ATUAIS
-		err = atualizar.Scan(&id_profissional, &nome_profissional, &telefone_profissional, &funcao_profissional, &endereco_profissional, &cidade_profissional, &bairro_profissional, &cpf_profissional, &email_profissional, &senha_profissional)
+		err = atualizar.Scan(&id_profissional, &nome_profissional, &telefone_profissional, &endereco_profissional, &cidade_profissional, &bairro_profissional, &cpf_profissional, &email_profissional, &senha_profissional)
 		if err != nil {
 			panic(err.Error())
 		}
 		//ATUALIZA O VALOR DAS VARIAVEIS
 		Atualize.Id_profissional = id_profissional
 		Atualize.Nome_profissional = nome_profissional
-		Atualize.Funcao_profissional = funcao_profissional
 		Atualize.Telefone_profissional = telefone_profissional
 		Atualize.Endereco_profissional = endereco_profissional
 		Atualize.Cidade_profissional = cidade_profissional
@@ -292,21 +309,21 @@ func Editarprofissional(id_profissional string) LoginProfissional {
 	return Atualize
 }
 
-//LANÇA AS ATUALIZAÇÕES DAS VARIAVEIS NO BANCO DE DADOS
-func Atualizarprofissional(id_profissional int, nome_profissional, funcao_profissional string, telefone_profissional int, endereco_profissional string, cidade_profissional string, bairro_profissional string, cpf_profissional int, email_profissional string, senha_profissional int) {
+// LANÇA AS ATUALIZAÇÕES DAS VARIAVEIS NO BANCO DE DADOS
+func Atualizarprofissional(id_profissional int, nome_profissional string, telefone_profissional int, endereco_profissional string, cidade_profissional string, bairro_profissional string, cpf_profissional int, email_profissional string, senha_profissional int) {
 	db := db.Acesse()
 
-	atualiza, err := db.Prepare("update loginprofissional set nome_profissional=$1, funcao_profissional=$2, telefone_profissional=$3, endereco_profissional=$4, cidade_profissional=$5, bairro_profissional=$6, cpf_profissionale=$7, email_profissional=$8, senha_profissional=$9 where id_profissional=$10")
+	atualiza, err := db.Prepare("update loginprofissional set nome_profissional=$1, telefone_profissional=$2, endereco_profissional=$3, cidade_profissional=$4, bairro_profissional=$5, cpf_profissionale=$6, email_profissional=$7, senha_profissional=$8 where id_profissional=$9")
 	if err != nil {
 		panic(err.Error())
 	}
-	atualiza.Exec(nome_profissional, funcao_profissional, telefone_profissional, endereco_profissional, cidade_profissional, bairro_profissional, cpf_profissional, email_profissional, senha_profissional, id_profissional)
+	atualiza.Exec(nome_profissional, telefone_profissional, endereco_profissional, cidade_profissional, bairro_profissional, cpf_profissional, email_profissional, senha_profissional, id_profissional)
 	defer db.Close()
 }
 
 //PROCEDIMENTO
 
-//CADASTRAR PROCEDIMENTO
+// CADASTRAR PROCEDIMENTO
 func InseriProcedimento(nome_procedimento string, data_procedimento string, hora_procedimento string, tipo_procedimento string, valor_procedimento string, profissional_designado string) {
 	db := db.Acesse()
 
@@ -319,7 +336,7 @@ func InseriProcedimento(nome_procedimento string, data_procedimento string, hora
 	defer db.Close()
 }
 
-//REALIZA UMA BUSCA PELO BANCO DE DADOS
+// REALIZA UMA BUSCA PELO BANCO DE DADOS
 func BuscarProcedimento() []Procedimento {
 	db := db.Acesse()
 
@@ -361,7 +378,7 @@ func BuscarProcedimento() []Procedimento {
 
 }
 
-//DELETAR PROCEDIMENTO
+// DELETAR PROCEDIMENTO
 func DeletaProcedimento(id_procedimento string) {
 	db := db.Acesse()
 
@@ -375,7 +392,7 @@ func DeletaProcedimento(id_procedimento string) {
 
 }
 
-//EDITAR PROCEDIMENTO
+// EDITAR PROCEDIMENTO
 func EditarProcedimento(id_procedimento string) Procedimento {
 	db := db.Acesse()
 
@@ -415,7 +432,7 @@ func EditarProcedimento(id_procedimento string) Procedimento {
 	return Atualize
 }
 
-//LANÇA AS ATUALIZAÇÕES DAS VARIAVEIS NO BANCO DE DADOS
+// LANÇA AS ATUALIZAÇÕES DAS VARIAVEIS NO BANCO DE DADOS
 func AtualizarProcedimento(id_procedimento int, nome_procedimento string, data_procedimento string, hora_procedimento string, tipo_procedimento string, valor_procedimento string, profissional_designado string) {
 	db := db.Acesse()
 

@@ -7,12 +7,19 @@ import (
 
 func CarregaRotas() {
 	http.HandleFunc("/", controle.Login)
+	http.HandleFunc("/Login_paciente", controle.LoginPaciente)
+	http.HandleFunc("/Login_profissional", controle.LoginProfissional)
 	http.HandleFunc("/Dashboard", controle.Tela_Dashboard)
-
+	http.HandleFunc("/Config/", controle.Tela_Configuracoes)
+	http.HandleFunc("/Atendimento", controle.Tela_Atendimento)
+	http.HandleFunc("/Calendario", controle.Tela_Calendario)
+	http.HandleFunc("/Tratamentos", controle.Tela_Tratamentos)
+	http.HandleFunc("/Financeiro", controle.Tela_Financeiro)
+	http.HandleFunc("/loginpaciente", controle.LoginHandler)
 	//Paciente
-	http.HandleFunc("/listar.html", controle.Listar)
+	http.HandleFunc("/Inserir", controle.Inserir)
 	/*
-		http.HandleFunc("/inserir", controle.Inserir)
+		http.HandleFunc("/listar.html", controle.Listar)
 		http.HandleFunc("/delete", controle.Delete)
 		http.HandleFunc("/edit.html", controle.Edit)
 		http.HandleFunc("/atualizar", controle.Atualize)

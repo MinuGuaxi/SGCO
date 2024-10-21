@@ -1,4 +1,4 @@
-{{define "Login"}}
+{{define "Login_Paciente"}}
 
 <html lang="pt-br">
 
@@ -134,7 +134,7 @@
 			overflow: hidden;
 			width: 768px;
 			max-width: 100%;
-			min-height: 480px;
+			min-height: 580px;
             opacity: 90%;
 		}
 
@@ -333,35 +333,33 @@
 <body>
 	<div class="container" id="container">
 		<div class="form-container sign-up-container" style="opacity: 100%;">
-			<form action="#">
+			<form method="POST" action="/Inserir">
 				<h1>Inscreva-se</h1>
-				<div class="social-container">
-					<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-					<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-					<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-					<a href="#" class="social"><i class="fab fa-github"></i></a>
-				</div>
-				<span>Seu email, ja esta registrado?</span>
-				<input type="text" placeholder="Nome" />
-				<input type="email" placeholder="Email" />
-				<input type="password" placeholder="Senha" />
-				<button>Entrar</button>
+
+				<span>Preencha as informações:</span>
+				<input type="text" id="Nome_paciente" name="Nome_paciente" placeholder="Nome" />
+				<select placeholder="Selecione um plano" id="Tipo_plano" name="Tipo_plano">
+					<option value="none">Selecione um plano</option>
+					<option value="gratuito">Gratuito</option>
+				</select>
+				<input type="text" id="Telefone_paciente" name="Telefone_paciente" placeholder="Telefone" />
+				<input type="text" id="Endereco_paciente" name="Endereco_paciente" placeholder="Endereço" />
+				<input type="text" id="Cidade_paciente" name="Cidade_paciente" placeholder="Cidade" />
+				<input type="text" id="Bairro_paciente" name="Bairro_paciente" placeholder="Bairro" />
+				<input type="text" id="Cpf_paciente" name="Cpf_paciente" placeholder="CPF" />
+				<input type="email" id="Email_paciente" name="Email_paciente" placeholder="Email" />
+				<input type="password" id="Senha_paciente" name="Senha_paciente" placeholder="Senha" />
+				<button type="submit">Registrar</button>
 			</form>
 		</div>
 		<div class="form-container sign-in-container" style="opacity: 100%;">
-			<form action="#">
+			<form action="/loginpaciente" method="POST">
 				<h1>Bem vindo!</h1>
-				<div class="social-container">
-					<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-					<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-					<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-					<a href="#" class="social"><i class="fab fa-github"></i></a>
-				</div>
-				<span>Ou use sua conta</span>
-				<input type="email" placeholder="Email" />
-				<input type="password" placeholder="Senha" />
+				<span>Preencha as informações:</span>
+				<input type="email" id="Email_paciente" name="Email_paciente" placeholder="Email" />
+				<input type="password" id="Senha_paciente" name="Senha_paciente" placeholder="Senha" />
 				<a href="#">Esqueceu sua senha?</a>
-				<button><a href="/Dashboard">Entrar</a></button>
+				<button type="submit">Entrar</button>
 			</form>
 		</div>
 		<div class="overlay-container" style="opacity: 100%;">
