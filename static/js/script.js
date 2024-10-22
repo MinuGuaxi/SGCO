@@ -1,62 +1,87 @@
-// start: Sidebar
-document.querySelector('.chat-sidebar-profile-toggle').addEventListener('click', function(e) {
-    e.preventDefault()
-    this.parentElement.classList.toggle('active')
-})
+document.addEventListener('DOMContentLoaded', function () {
+    const sendButton = document.getElementById('sendButton');
+    const messageInput = document.getElementById('messageInput');
+    const conversationLinks = document.querySelectorAll('.content-conversas-header');
+    const defaultMessage = document.querySelector('.conversation-default');
+    const conversationAreas = document.querySelectorAll('.conversation');
 
-document.addEventListener('click', function(e) {
-    if(!e.target.matches('.chat-sidebar-profile, .chat-sidebar-profile *')) {
-        document.querySelector('.chat-sidebar-profile').classList.remove('active')
-    }
-})
-// end: Sidebar
+    // Função para trocar de conversa
+    conversationLinks.forEach(link => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
 
+            // Esconder mensagem padrão
+            if (defaultMessage) {
+                defaultMessage.style.display = 'none';
+            }
 
+            // Identificar a conversa a ser mostrada
+            const conversationId = link.getAttribute('data-conversation');
+            const conversationToShow = document.querySelector(conversationId);
 
-// start: Coversation
-document.querySelectorAll('.conversation-item-dropdown-toggle').forEach(function(item) {
-    item.addEventListener('click', function(e) {
-        e.preventDefault()
-        if(this.parentElement.classList.contains('active')) {
-            this.parentElement.classList.remove('active')
-        } else {
-            document.querySelectorAll('.conversation-item-dropdown').forEach(function(i) {
-                i.classList.remove('active')
-            })
-            this.parentElement.classList.add('active')
+            // Esconder todas as outras conversas
+            conversationAreas.forEach(area => {
+                area.style.display = 'none';  // Esconder a conversa
+            });
+
+            // Mostrar a conversa selecionada
+            if (conversationToShow) {
+                conversationToShow.style.display = 'block';  // Mostrar a conversa selecionada
+            } else {
+                console.error(`Conversa com ID ${conversationId} não encontrada.`);
+            }
+        });
+    });
+
+    // Função para adicionar mensagens à conversa ativa
+    function addMessage(content, isSender = true) {
+        const activeConversation = document.querySelector('.conversation[style*="display: block"] .conversation-wrapper');
+
+        if (!activeConversation) {
+            console.error("Nenhuma conversa ativa.");
+            return;
         }
-    })
-})
 
-document.addEventListener('click', function(e) {
-    if(!e.target.matches('.conversation-item-dropdown, .conversation-item-dropdown *')) {
-        document.querySelectorAll('.conversation-item-dropdown').forEach(function(i) {
-            i.classList.remove('active')
-        })
+        const messageWrapper = document.createElement('li');
+        messageWrapper.classList.add('conversation-item');
+        if (isSender) messageWrapper.classList.add('me');
+
+        const messageContent = `
+            <div class="conversation-item-side">
+                <img src="sender-avatar-url.jpg" alt="User Avatar">
+            </div>
+            <div class="conversation-item-content">
+                <div class="conversation-item-box">
+                    <div class="conversation-item-text"><p>${content}</p></div>
+                    <div class="conversation-item-time">Agora</div>
+                </div>
+            </div>
+        `;
+
+        messageWrapper.innerHTML = messageContent;
+        activeConversation.appendChild(messageWrapper);
+        scrollToBottom(activeConversation);
     }
-})
 
-document.querySelectorAll('.conversation-form-input').forEach(function(item) {
-    item.addEventListener('input', function() {
-        this.rows = this.value.split('\n').length
-    })
-})
+    // Função para rolar até o final da conversa
+    function scrollToBottom(conversationWrapper) {
+        conversationWrapper.scrollTop = conversationWrapper.scrollHeight;
+    }
 
-document.querySelectorAll('[data-conversation]').forEach(function(item) {
-    item.addEventListener('click', function(e) {
-        e.preventDefault()
-        document.querySelectorAll('.conversation').forEach(function(i) {
-            i.classList.remove('active')
-        })
-        document.querySelector(this.dataset.conversation).classList.add('active')
-    })
-})
+    // Evento de clique no botão de enviar mensagem
+    sendButton.addEventListener('click', function () {
+        const message = messageInput.value.trim();
+        if (message) {
+            addMessage(message);
+            messageInput.value = ''; // Limpar campo de mensagem
+        }
+    });
 
-document.querySelectorAll('.conversation-back').forEach(function(item) {
-    item.addEventListener('click', function(e) {
-        e.preventDefault()
-        this.closest('.conversation').classList.remove('active')
-        document.querySelector('.conversation-default').classList.add('active')
-    })
-})
-// end: Coversation
+    // Enviar mensagem com a tecla "Enter"
+    messageInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendButton.click();  // Dispara o clique do botão de enviar
+        }
+    });
+});

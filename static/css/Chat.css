@@ -1,0 +1,335 @@
+/* Container principal do atendimento */
+.container-atendimento {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    max-height: 100%;
+    overflow: hidden;
+}
+
+/* Área de lista de conversas */
+.content-atendimento-1 {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    background-color: #f5f5f5;
+    border-right: 1px solid #ddd;
+    overflow-y: auto;
+}
+
+/* Pesquisa de conversas */
+.content-pesquisa {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+.content-pesquisa input {
+    flex-grow: 1;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.btn-pesquisa {
+    background-color: #007bff;
+    border: none;
+    padding: 5px;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+/* Lista de conversas */
+.content-conversa {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.content-conversas-1 {
+    list-style-type: none;
+    padding: 0;
+}
+
+.content-conversas-header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+}
+
+.content-conversas-header:hover {
+    background-color: #e9e9e9;
+}
+
+.content-message-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+.content-message-name {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.content-message-text {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Área de Chat */
+.content-atendimento-2 {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+}
+
+/* Estilo da mensagem de seleção padrão */
+.conversation-default {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+    color: #888;
+    font-size: 18px;
+    padding: 20px;
+}
+
+/* Ocultar por padrão as conversas específicas */
+.conversation {
+    display: none;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: hidden; /* Evita overflow não intencional na exibição inicial */
+}
+
+/* Exibir a conversa ativa */
+.conversation.active {
+    display: flex; /* Trocar de display para flex quando ativa */
+}
+
+/* Navbar da conversa */
+.conversation-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    background-color: #f9f9f9;
+}
+
+.conversation-back {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.conversation-user {
+    display: flex;
+    align-items: center;
+}
+
+.conversation-user img {
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.conversation-user-name {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.conversation-user-status {
+    font-size: 12px;
+    color: green;
+}
+
+.conversation-buttons button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    margin-left: 10px;
+}
+
+/* Chat principal */
+.conversation-main {
+    padding: 10px;
+    flex-grow: 1;
+    overflow-y: auto;
+    max-height: calc(100vh - 130px); /* Ajusta altura para caber o chat e a barra de mensagens */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.conversation-wrapper {
+    list-style-type: none;
+    padding: 0;
+}
+
+.coversation-divider {
+    text-align: center;
+    font-size: 12px;
+    color: #888;
+    margin: 10px 0;
+}
+
+/* Estilos das mensagens */
+.conversation-item {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.conversation-item.me {
+    flex-direction: row-reverse;
+}
+
+.conversation-item-side img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.conversation-item-content {
+    display: flex;
+    align-items: center;
+}
+
+.conversation-item-wrapper {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.conversation-item-box {
+    background-color: #eaeaea;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 70%;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.conversation-item-text p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.conversation-item-time {
+    font-size: 12px;
+    color: gray;
+    text-align: right;
+    margin-top: 5px;
+}
+
+.me .conversation-item-box {
+    background-color: #007bff;
+    color: white;
+}
+
+.me .conversation-item-text p {
+    color: white;
+}
+
+/* Formulário de envio de mensagem */
+.conversation-form {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-top: 1px solid #ddd;
+}
+
+.conversation-form-group {
+    display: flex;
+    flex-grow: 1;
+    margin: 0 10px;
+}
+
+.conversation-form-input {
+    width: 100%;
+    resize: none;
+    border: none;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 10px;
+    background-color: #f1f1f1;
+    outline: none;
+}
+
+.conversation-form-button {
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.conversation-form-submit {
+    background-color: #007bff;
+    color: white;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.conversation-form-submit:hover {
+    background-color: #0056b3;
+}
+
+.conversation-form-record {
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .container-atendimento {
+        flex-direction: column;
+    }
+
+    .content-atendimento-1 {
+        width: 100%;
+        height: 40%;
+    }
+
+    .content-atendimento-2 {
+        height: 60%;
+    }
+
+    .conversation-main {
+        max-height: calc(60vh - 130px);
+    }
+}
+
+@media (max-width: 480px) {
+    .conversation-top, .conversation-form {
+        padding: 5px;
+    }
+
+    .conversation-main {
+        max-height: calc(50vh - 100px);
+    }
+
+    .conversation-item-box {
+        max-width: 80%;
+    }
+}

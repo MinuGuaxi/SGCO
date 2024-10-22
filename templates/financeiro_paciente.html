@@ -1,7 +1,125 @@
 {{ define "content" }}
 
-<div class="main-container">
+<style>
+
+    .btn-green {
+        display: inline-flex; /* Alinha o ícone no centro */
+        align-items: center; /* Alinha o ícone verticalmente */
+        justify-content: center; /* Alinha o ícone horizontalmente */
+        padding: 10px 15px; /* Espaçamento interno do botão */
+        background-color: #28a745; /* Cor de fundo verde */
+        color: white; /* Cor do ícone */
+        border: none; /* Remove a borda padrão */
+        border-radius: 5px; /* Arredonda os cantos */
+        text-decoration: none; /* Remove o sublinhado do link */
+        transition: background-color 0.3s ease; /* Transição suave ao passar o mouse */
+    }
     
+    .btn-green:hover {
+        background-color: #218838; /* Cor mais escura ao passar o mouse */
+    }
+    
+
+</style>
+
+<div class="main-container">
+    <div class="title-finance">
+        <i class="fas fa-calendar" style="font-size: 4  vh"></i>
+        <h2>Financeiro</h2>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Procedimento</th>
+                    <th scope="col">Medico</th>
+                    <th scope="col">Data</th>
+                    <th scope="col">Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Victoria</th>
+                    <td>Extração dental</td>
+                    <td>Otto</td>
+                    <td>14:30</td>
+                    <td>
+                        <a href="#" class="btn-green">
+                            <i class="fas fa-solid fa-barcode"></i>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Jessica</th>
+                    <td>Raio-x Dental</td>
+                    <td>Thor</td>
+                    <td>9:10</td>
+                    <td>
+                        <a href="#" class="btn-green">
+                            <i class="fas fa-solid fa-barcode"></i>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Jessica</th>
+                    <td>Limpeza</td>
+                    <td>Carlos Magno</td>
+                    <td>10:00</td>
+                    <td>
+                        <a href="#" class="btn-green">
+                            <i class="fas fa-solid fa-barcode"></i>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Jessica</th>
+                    <td>Limpeza</td>
+                    <td>Carlos Magno</td>
+                    <td>10:00</td>
+                    <td>
+                        <a href="#" class="btn-green">
+                            <i class="fas fa-solid fa-barcode"></i>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Jessica</th>
+                    <td>Limpeza</td>
+                    <td>Carlos Magno</td>
+                    <td>10:00</td>
+                    <td>
+                        <a href="#" class="btn-green">
+                            <i class="fas fa-solid fa-barcode"></i>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Jessica</th>
+                    <td>Limpeza</td>
+                    <td>Carlos Magno</td>
+                    <td>10:00</td>
+                    <td>
+                        <a href="#" class="btn-green">
+                            <i class="fas fa-solid fa-barcode"></i>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Jessica</th>
+                    <td>Limpeza</td>
+                    <td>Carlos Magno</td>
+                    <td>10:00</td>
+                    <td>
+                        <a href="#" class="btn-green">
+                            <i class="fas fa-solid fa-barcode"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
 </div>
 
 {{ end }}

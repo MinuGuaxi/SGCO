@@ -1,82 +1,113 @@
 {{ define "content" }}
 
 <div class="main-container">
-    <div class="card-title central-container">
-        <div id="diasCarrossel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="carousel-dia">
-                        <h3>01 Outubro</h3>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="carousel-dia">
-                        <h3>02 Outubro</h3>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="carousel-dia">
-                        <h3>03 Outubro</h3>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="carousel-dia">
-                        <h3>04 Outubro</h3>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="carousel-dia">
-                        <h3>05 Outubro</h3>
-                    </div>
-                </div>
-            </div>
+
+    <div class="main-container">
+        <div class="title-calendar">
+        <i class="fas fa-calendar" style="font-size: 4  vh"></i>
+        <h2>Calendário</h2>
         </div>
-    
-    
-        <button class="carousel-control-prev" type="button" data-bs-target="#diasCarrossel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Anterior</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#diasCarrossel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Próximo</span>
-        </button>
-    
+        <div class="calendar-carousel">
+          <div class="days">
+            <!-- Dias do mês (pode ser gerado dinamicamente via JS) -->
+            <div class="day-card">1</div>
+            <div class="day-card">2</div>
+            <div class="day-card">3</div>
+            <div class="day-card">4</div>
+            <div class="day-card">5</div>
+            <div class="day-card">6</div>
+            <div class="day-card">7</div>
+            <div class="day-card">8</div>
+            <div class="day-card">9</div>
+            <div class="day-card">10</div>
+            <div class="day-card">11</div>
+            <div class="day-card">12</div>
+            <div class="day-card">13</div>
+            <div class="day-card">14</div>
+            <div class="day-card">15</div>
+            <div class="day-card">16</div>
+            <div class="day-card">17</div>
+            <div class="day-card">18</div>
+            <div class="day-card">19</div>
+            <div class="day-card">20</div>
+            <div class="day-card">21</div>
+            <div class="day-card">22</div>
+            <div class="day-card">23</div>
+            <div class="day-card">24</div>
+            <div class="day-card">25</div>
+            <div class="day-card">26</div>
+            <div class="day-card">27</div>
+            <div class="day-card">28</div>
+            <div class="day-card">29</div>
+            <div class="day-card">30</div>
+            <div class="day-card">31</div>
+            <!-- Adicione mais dias até o final do mês -->
+          </div>
+        </div>
+      </div>
+      
     <!-- Fim do carrosel -->
     
     <!-- Inicio Tabela  -->
     
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Procedimento</th>
-                        <th>Médico</th>
-                        <th>Hora</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Victoria</td>
-                        <td>Extração dental</td>
-                        <td>Paulo</td>
-                        <td>14:30</td>
-                    </tr>
-                    <tr>
-                        <td>Jessica</td>
-                        <td>Raio-x Dental</td>
-                        <td>Carlos </td>
-                        <td>09:10</td>
-                    </tr>
-                    <tr>
-                        <td>Jessica</td>
-                        <td>Limpeza</td>
-                        <td>Carlos Magno</td>
-                        <td>10:00</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Procedimento</th>
+                    <th scope="col">Medico</th>
+                    <th scope="col">Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Victoria</th>
+                    <td>Extração dental</td>
+                    <td>Otto</td>
+                    <td>14:30</td>
+                </tr>
+                <tr>
+                    <th scope="row">Jessica</th>
+                    <td>Raio-x Dental</td>
+                    <td>Thor</td>
+                    <td>9:10</td>
+                </tr>
+                <tr>
+                    <th scope="row">Jessica</th>
+                    <td>Limpeza</td>
+                    <td>Carlos Magno</td>
+                    <td>10:00</td>
+                </tr>
+                <tr>
+                    <th scope="row">Jessica</th>
+                    <td>Limpeza</td>
+                    <td>Carlos Magno</td>
+                    <td>10:00</td>
+                </tr>
+                <tr>
+                    <th scope="row">Jessica</th>
+                    <td>Limpeza</td>
+                    <td>Carlos Magno</td>
+                    <td>10:00</td>
+                </tr>
+                <tr>
+                    <th scope="row">Jessica</th>
+                    <td>Limpeza</td>
+                    <td>Carlos Magno</td>
+                    <td>10:00</td>
+                </tr>
+                <tr>
+                    <th scope="row">Jessica</th>
+                    <td>Limpeza</td>
+                    <td>Carlos Magno</td>
+                    <td>10:00</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+
 </div>
 
 {{ end }}
