@@ -3,6 +3,7 @@ package modelo
 import (
 	"database/sql"
 	"fmt"
+	"log"
 	"modulo/db"
 )
 
@@ -37,22 +38,31 @@ type Procedimento struct {
 	Data_procedimento      string
 	Hora_procedimento      string
 	Tipo_procedimento      string
-	Valor_procedimento     string
+	Valor_procedimento     int
 	Profissional_Designado string
+	Paciente_id            int // Novo campo adicionado
 }
 
 //PACIENTE
 
 // CADASTRAR PACIENTE
-func Inseri(Nome_paciente, tipo_plano string, telefone_paciente int, endereco_paciente string, cidade_paciente string, bairro_paciente string, cpf_paciente int, email_paciente string, senha_paciente int) {
+func Inseri(nome_paciente string, tipo_plano string, telefone_paciente int, endereco_paciente string, cidade_paciente string, bairro_paciente string, cpf_paciente int, email_paciente string, senha_paciente int) {
 	db := db.Acesse()
 
-	inserir, err := db.Prepare("insert into loginpaciente (nome_paciente, tipo_plano, telefone_paciente, endereco_paciente, cidade_paciente, bairro_paciente, cpf_paciente, email_paciente, senha_paciente) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)")
+	inserir, err := db.Prepare("INSERT INTO loginpaciente (nome_paciente, tipo_plano, telefone_paciente, endereco_paciente, cidade_paciente, bairro_paciente, cpf_paciente, email_paciente, senha_paciente) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)")
 	if err != nil {
-		panic(err.Error())
+		log.Println("Erro ao tentar salvar", err)
+		return
 	}
 
-	inserir.Exec(Nome_paciente, tipo_plano, telefone_paciente, endereco_paciente, cidade_paciente, bairro_paciente, cpf_paciente, email_paciente, senha_paciente)
+	// Executar a inserção
+	_, execErr := inserir.Exec(nome_paciente, tipo_plano, telefone_paciente, endereco_paciente, cidade_paciente, bairro_paciente, cpf_paciente, email_paciente, senha_paciente)
+	if execErr != nil {
+		log.Println("Erro ao executar SQL:", execErr)
+	} else {
+		log.Println("Dados inseridos com sucesso em:", nome_paciente)
+	}
+
 	defer db.Close()
 }
 
@@ -84,6 +94,37 @@ func AutenticaUsuario(Email_paciente string, Senha_paciente int) (bool, error) {
 
 	// Senha incorreta
 	fmt.Println("Senha incorreta para o email:", Email_paciente)
+	return false, nil
+}
+
+//AUTENTICAÇÃO DE USUÁRIO
+
+// Função de autenticação
+func AutenticaProfissional(email_profissional string, senha_profissional int) (bool, error) {
+	db := db.Acesse()
+
+	var senhaHash int
+	query := "SELECT senha_profissional FROM loginprofissional WHERE email_profissional=$1"
+	err := db.QueryRow(query, email_profissional).Scan(&senhaHash)
+
+	if err != nil {
+		if err == sql.ErrNoRows {
+			// Usuário não encontrado
+			fmt.Println("Usuário não encontrado:", email_profissional)
+			return false, nil
+		}
+		// Outro erro (ex: erro na query)
+		fmt.Println("Erro ao executar query:", err)
+		return false, err
+	}
+	fmt.Println("Senha encontrada:", senhaHash)
+	if senhaHash == senha_profissional {
+		// Autenticado com sucesso
+		return true, nil
+	}
+
+	// Senha incorreta
+	fmt.Println("Senha incorreta para o email:", email_profissional)
 	return false, nil
 }
 
@@ -122,7 +163,7 @@ func Buscar() []LoginPaciente {
 }
 */
 //DELETAR USUÁRIO
-func Deleta(id_paciente string) {
+func Deleta(id_paciente int) {
 	db := db.Acesse()
 
 	deletar, err := db.Prepare("delete from loginpaciente where id_paciente=$1")
@@ -136,7 +177,7 @@ func Deleta(id_paciente string) {
 }
 
 // EDITAR USUÁRIO
-func Editar(id_paciente string) LoginPaciente {
+func Editar(id_paciente int) LoginPaciente {
 	db := db.Acesse()
 
 	atualizar, err := db.Query("select * from loginpaciente where id_paciente = $1", id_paciente)
@@ -149,7 +190,8 @@ func Editar(id_paciente string) LoginPaciente {
 	//CRIA AS VARIAVEIS PARA INTERPRETAR VALORES.
 	for atualizar.Next() {
 		var id_paciente int
-		var nome_paciente, tipo_plano string
+		var nome_paciente string
+		var tipo_plano string
 		var telefone_paciente int
 		var endereco_paciente string
 		var cidade_paciente string
@@ -158,7 +200,7 @@ func Editar(id_paciente string) LoginPaciente {
 		var email_paciente string
 		var senha_paciente int
 		//INTERPRETA OS DADOS DO BANCO, COLETANDO DADOS ATUAIS
-		err = atualizar.Scan(&id_paciente, &nome_paciente, &telefone_paciente, &tipo_plano, &endereco_paciente, &cidade_paciente, &bairro_paciente, &cpf_paciente, &email_paciente, &senha_paciente)
+		err = atualizar.Scan(&id_paciente, &nome_paciente, &tipo_plano, &telefone_paciente, &endereco_paciente, &cidade_paciente, &bairro_paciente, &cpf_paciente, &email_paciente, &senha_paciente)
 		if err != nil {
 			panic(err.Error())
 		}
@@ -180,29 +222,37 @@ func Editar(id_paciente string) LoginPaciente {
 }
 
 // LANÇA AS ATUALIZAÇÕES DAS VARIAVEIS NO BANCO DE DADOS
-func Atualizar(id_paciente int, nome_paciente, tipo_plano string, telefone_paciente int, endereco_paciente string, cidade_paciente string, bairro_paciente string, cpf_paciente int, email_paciente string, senha_paciente int) {
+func Atualizar(id_paciente int, nome_paciente string, tipo_plano string, telefone_paciente int, endereco_paciente string, cidade_paciente string, bairro_paciente string, cpf_paciente int, email_paciente string, senha_paciente int) {
 	db := db.Acesse()
 
 	atualiza, err := db.Prepare("update loginpaciente set nome_paciente=$1, tipo_plano=$2, telefone_paciente=$3, endereco_paciente=$4, cidade_paciente=$5, bairro_paciente=$6, cpf_paciente=$7, email_paciente=$8, senha_paciente=$9 where id_paciente=$10")
 	if err != nil {
 		panic(err.Error())
 	}
-	atualiza.Exec(nome_paciente, tipo_plano, telefone_paciente, endereco_paciente, cidade_paciente, bairro_paciente, cpf_paciente, email_paciente, senha_paciente, id_paciente)
+	atualiza.Exec(id_paciente, nome_paciente, tipo_plano, telefone_paciente, endereco_paciente, cidade_paciente, bairro_paciente, cpf_paciente, email_paciente, senha_paciente)
 	defer db.Close()
 }
 
 //PROFISSIONAL
 
 // CADASTRAR PROFISSIONAL
-func Inseriprofissional(nome_profissional, funcao_profissional string, telefone_profissional int, endereco_profissional string, cidade_profissional string, bairro_profissional string, cpf_profissional int, email_profissional string, senha_profissional int) {
+func Inseriprofissional(nome_profissional string, telefone_profissional int, endereco_profissional string, cidade_profissional string, bairro_profissional string, cpf_profissional int, email_profissional string, senha_profissional int) {
 	db := db.Acesse()
 
-	inserir, err := db.Prepare("insert into loginprofissional (nome_profissional, funcao_profissional, telefone_profissional, endereco_profissional, cidade_profissional, bairro_profissional, cpf_profissional, email_profissional, senha_profissional) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)")
+	inserir, err := db.Prepare("INSERT INTO loginprofissional (nome_profissional, telefone_profissional, endereco_profissional, cidade_profissional, bairro_profissional, cpf_profissional, email_profissional, senha_profissional) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)")
 	if err != nil {
-		panic(err.Error())
+		log.Println("Erro ao tentar salvar", err)
+		return
 	}
 
-	inserir.Exec(nome_profissional, funcao_profissional, telefone_profissional, endereco_profissional, cidade_profissional, bairro_profissional, cpf_profissional, email_profissional, senha_profissional)
+	// Executar a inserção
+	_, execErr := inserir.Exec(nome_profissional, telefone_profissional, endereco_profissional, cidade_profissional, bairro_profissional, cpf_profissional, email_profissional, senha_profissional)
+	if execErr != nil {
+		log.Println("Erro ao executar SQL:", execErr)
+	} else {
+		log.Println("Dados inseridos com sucesso em:", nome_profissional)
+	}
+
 	defer db.Close()
 }
 
@@ -324,15 +374,19 @@ func Atualizarprofissional(id_profissional int, nome_profissional string, telefo
 //PROCEDIMENTO
 
 // CADASTRAR PROCEDIMENTO
-func InseriProcedimento(nome_procedimento string, data_procedimento string, hora_procedimento string, tipo_procedimento string, valor_procedimento string, profissional_designado string) {
+func InseriProcedimento(nome_procedimento string, data_procedimento string, hora_procedimento string, tipo_procedimento string, valor_procedimento int, profissional_designado string, paciente_id int) {
 	db := db.Acesse()
 
-	inserir, err := db.Prepare("insert into procedimento (nome_procedimento, data_procedimento, hora_procedimento, tipo_procedimento, valor_procedimento, profissional_designado) values ($1, $2, $3, $4, $5, $6, $7)")
+	inserir, err := db.Prepare("INSERT INTO procedimento (nome_procedimento, data_procedimento, hora_procedimento, tipo_procedimento, valor_procedimento, profissional_designado, paciente_id) VALUES ($1, $2, $3, $4, $5, $6, $7)")
 	if err != nil {
-		panic(err.Error())
+		log.Println("Erro ao preparar a inserção:", err)
 	}
 
-	inserir.Exec(nome_procedimento, data_procedimento, hora_procedimento, tipo_procedimento, valor_procedimento, profissional_designado)
+	_, execErr := inserir.Exec(nome_procedimento, data_procedimento, hora_procedimento, tipo_procedimento, valor_procedimento, profissional_designado, paciente_id)
+	if execErr != nil {
+		log.Println("Erro ao executar a inserção:", execErr)
+	}
+
 	defer db.Close()
 }
 
@@ -354,10 +408,11 @@ func BuscarProcedimento() []Procedimento {
 		var data_procedimento string
 		var hora_procedimento string
 		var tipo_procedimento string
-		var valor_procedimento string
+		var valor_procedimento int
 		var profissional_designado string
+		var paciente_id int
 
-		err = selectReg.Scan(&id_procedimento, &nome_procedimento, &data_procedimento, &hora_procedimento, &tipo_procedimento, &valor_procedimento, &profissional_designado)
+		err = selectReg.Scan(&id_procedimento, &nome_procedimento, &data_procedimento, &hora_procedimento, &tipo_procedimento, &valor_procedimento, &profissional_designado, &paciente_id)
 		if err != nil {
 			panic(err.Error())
 		}
@@ -369,6 +424,7 @@ func BuscarProcedimento() []Procedimento {
 		l.Tipo_procedimento = tipo_procedimento
 		l.Valor_procedimento = valor_procedimento
 		l.Profissional_Designado = profissional_designado
+		l.Paciente_id = paciente_id
 
 		logar = append(logar, l)
 	}
@@ -410,7 +466,7 @@ func EditarProcedimento(id_procedimento string) Procedimento {
 		var data_procedimento string
 		var hora_procedimento string
 		var tipo_procedimento string
-		var valor_procedimento string
+		var valor_procedimento int
 		var profissional_designado string
 		//INTERPRETA OS DADOS DO BANCO, COLETANDO DADOS ATUAIS
 		err = atualizar.Scan(&id_procedimento, &nome_procedimento, &data_procedimento, &hora_procedimento, &tipo_procedimento, &valor_procedimento, &profissional_designado)

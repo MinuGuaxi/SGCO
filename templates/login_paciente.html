@@ -337,24 +337,24 @@
 				<h1>Inscreva-se</h1>
 
 				<span>Preencha as informações:</span>
-				<input type="text" id="Nome_paciente" name="Nome_paciente" placeholder="Nome" />
-				<select placeholder="Selecione um plano" id="Tipo_plano" name="Tipo_plano">
+				<input type="text" id="nome_paciente" name="nome_paciente" placeholder="Nome" />
+				<select placeholder="Selecione um plano" id="tipo_plano" name="tipo_plano">
 					<option value="none">Selecione um plano</option>
 					<option value="gratuito">Gratuito</option>
 				</select>
-				<input type="text" id="Telefone_paciente" name="Telefone_paciente" placeholder="Telefone" />
-				<input type="text" id="Endereco_paciente" name="Endereco_paciente" placeholder="Endereço" />
-				<input type="text" id="Cidade_paciente" name="Cidade_paciente" placeholder="Cidade" />
-				<input type="text" id="Bairro_paciente" name="Bairro_paciente" placeholder="Bairro" />
-				<input type="text" id="Cpf_paciente" name="Cpf_paciente" placeholder="CPF" />
-				<input type="email" id="Email_paciente" name="Email_paciente" placeholder="Email" />
-				<input type="password" id="Senha_paciente" name="Senha_paciente" placeholder="Senha" />
+				<input type="number" id="telefone_paciente" name="telefone_paciente" placeholder="Telefone" />
+				<input type="text" id="endereco_paciente" name="endereco_paciente" placeholder="Endereço" />
+				<input type="text" id="cidade_paciente" name="cidade_paciente" placeholder="Cidade" />
+				<input type="text" id="bairro_paciente" name="bairro_paciente" placeholder="Bairro" />
+				<input type="number" id="cpf_paciente" name="cpf_paciente" placeholder="CPF" />
+				<input type="email" id="email_paciente" name="email_paciente" placeholder="Email" />
+				<input type="password" id="senha_paciente" name="senha_paciente" placeholder="Senha" />
 				<button type="submit">Registrar</button>
 			</form>
 		</div>
 		<div class="form-container sign-in-container" style="opacity: 100%;">
 			<form action="/loginpaciente" method="POST">
-				<h1>Bem vindo!</h1>
+				<h1>Bem vindo paciente!</h1>
 				<span>Preencha as informações:</span>
 				<input type="email" id="Email_paciente" name="Email_paciente" placeholder="Email" />
 				<input type="password" id="Senha_paciente" name="Senha_paciente" placeholder="Senha" />

@@ -1,0 +1,319 @@
+{{ define "content" }}
+<style>
+    .central-title{
+        text-align: center;
+    }
+    .main-central{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 80vh;
+        padding: 20px;
+        background-color: #f2f2f2;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        margin: 10px;
+        border: 1px solid #ccc;
+    }
+    .btn-central {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        display: inline-block;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        margin: 10px;
+        transition: background-color 0.3s;
+    }
+    .btn-central:hover {
+        background-color: #45a049;
+    }
+    .central-line{
+        width: 90%;
+        border: 1px solid #ccc;
+        margin-bottom: 1px;
+        margin-top: 1px;
+        text-align: center;
+    }
+
+    /* Modal styling */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+    }
+    .modal-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        max-width: 500px;
+        text-align: center;
+    }
+    .close-btn {
+        color: red;
+        float: right;
+        font-size: 20px;
+        cursor: pointer;
+    }
+    form {
+        background-color: #FFFFFF;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 0 50px;
+        height: 100%;
+        text-align: center;
+    }
+
+    input {
+        background-color: #eee;
+        border: none;
+        padding: 12px 15px;
+        margin: 8px 0;
+        width: 100%;
+    }
+</style>
+
+<div class="main-container">
+    <h1 class="central-title">Central de Registros</h1>
+    <section class="main-central">
+        <hr class="central-line"/>
+            <h3>Escolha um serviço:</h3>
+            <hr class="central-line"/>
+
+            <h4>PROCEDIMENTOS</h4>
+            <a class="btn-central" onclick="openModal('procedimentosModal')">
+                Registro de Procedimentos
+            </a>
+            <h4>DADOS REGISTRADOS</h4>
+            <a class="btn-central" onclick="openModal('listaProcedimentosModal')">
+                Lista de Procedimentos
+            </a>
+            <a class="btn-central" onclick="openModal('listaPacientesModal')">
+                Lista de Pacientes
+            </a>    
+            <a class="btn-central" onclick="openModal('listaProfissionaisModal')">
+                Lista de Profissionais
+            </a>
+    </section>
+</div>
+
+<!-- Modal Template -->
+<div id="procedimentosModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('procedimentosModal')">&times;</span>
+        <h2>Registro de Procedimentos</h2>
+        <form method="POST" action="/cadastrar_procedimento">  
+
+            <span>Preencha as informações:</span>
+            <input type="text" id="nome_procedimento" name="nome_procedimento" placeholder="Nome" />
+            <input type="date" id="data_procedimento" name="data_procedimento" placeholder="Data" />
+            <input type="time" id="hora_procedimento" name="hora_procedimento" placeholder="Horario" />
+            <select id="tipo_procedimento" name="tipo_procedimento" placeholder="Tipo">
+                <option value="none">Selecione um tipo</option>
+                <option value="Estetico">Estetico</option>
+                <option value="Estetico">Cirurgico</option>
+                <option value="Estetico">Clinico</option>
+            </select>
+            <input type="number" id="valor_procedimento" name="valor_procedimento" placeholder="Insira o valor" />
+            <input type="text" id="profissional_designado" name="profissional_designado" placeholder="Insira o profissional designado" />   
+               <!-- Novo campo para vincular o paciente -->
+            <input type="number" id="paciente_id" name="paciente_id" placeholder="ID do Paciente" />
+            <button type="submit">Registrar</button>
+        </form> 
+    </div>
+</div>
+
+<div id="listaProcedimentosModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('listaProcedimentosModal')">&times;</span>
+        <h2>Lista de Procedimentos</h2>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Procedimento</th>
+                        <th scope="col">Medico</th>
+                        <th scope="col">Data</th>
+                        <th scope="col">Hora</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{range .}}
+                    <tr>
+                        <th scope="row">{{.Paciente_id}}</th> <!-- Aqui você pode ajustar para exibir o nome do paciente -->
+                        <td>{{.Nome_procedimento}}</td>
+                        <td>{{.Profissional_Designado}}</td>
+                        <td>{{.Data_procedimento}}</td>
+                        <td>{{.Hora_procedimento}}</td>
+                    </tr>
+                    {{end}}
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</div>
+
+<div id="listaPacientesModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('listaPacientesModal')">&times;</span>
+        <h2>Lista de Pacientes</h2>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Procedimento</th>
+                        <th scope="col">Medico</th>
+                        <th scope="col">Data</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Victoria</th>
+                        <td>Extração dental</td>
+                        <td>Otto</td>
+                        <td>14:30</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Jessica</th>
+                        <td>Raio-x Dental</td>
+                        <td>Thor</td>
+                        <td>9:10</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Jessica</th>
+                        <td>Limpeza</td>
+                        <td>Carlos Magno</td>
+                        <td>10:00</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Jessica</th>
+                        <td>Limpeza</td>
+                        <td>Carlos Magno</td>
+                        <td>10:00</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Jessica</th>
+                        <td>Limpeza</td>
+                        <td>Carlos Magno</td>
+                        <td>10:00</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Jessica</th>
+                        <td>Limpeza</td>
+                        <td>Carlos Magno</td>
+                        <td>10:00</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Jessica</th>
+                        <td>Limpeza</td>
+                        <td>Carlos Magno</td>
+                        <td>10:00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="listaProfissionaisModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('listaProfissionaisModal')">&times;</span>
+        <h2>Lista de Profissionais</h2>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Procedimento</th>
+                        <th scope="col">Medico</th>
+                        <th scope="col">Data</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Victoria</th>
+                        <td>Extração dental</td>
+                        <td>Otto</td>
+                        <td>14:30</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Jessica</th>
+                        <td>Raio-x Dental</td>
+                        <td>Thor</td>
+                        <td>9:10</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Jessica</th>
+                        <td>Limpeza</td>
+                        <td>Carlos Magno</td>
+                        <td>10:00</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Jessica</th>
+                        <td>Limpeza</td>
+                        <td>Carlos Magno</td>
+                        <td>10:00</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Jessica</th>
+                        <td>Limpeza</td>
+                        <td>Carlos Magno</td>
+                        <td>10:00</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Jessica</th>
+                        <td>Limpeza</td>
+                        <td>Carlos Magno</td>
+                        <td>10:00</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Jessica</th>
+                        <td>Limpeza</td>
+                        <td>Carlos Magno</td>
+                        <td>10:00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Função para abrir o modal
+    function openModal(modalId) {
+        document.getElementById(modalId).style.display = "flex";
+    }
+
+    // Função para fechar o modal
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = "none";
+    }
+
+    // Fechar modal se clicar fora da área de conteúdo
+    window.onclick = function(event) {
+        const modals = document.getElementsByClassName('modal');
+        for (let i = 0; i < modals.length; i++) {
+            if (event.target == modals[i]) {
+                modals[i].style.display = "none";
+            }
+        }
+    }
+</script>
+
+{{ end }}

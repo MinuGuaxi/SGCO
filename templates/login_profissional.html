@@ -4,9 +4,8 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Login</title>
+	<title>Login do Profissional</title>
 	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css'>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
 	<style>
 		@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
@@ -333,35 +332,29 @@
 <body>
 	<div class="container" id="container">
 		<div class="form-container sign-up-container" style="opacity: 100%;">
-			<form action="#">
+			<form method="POST" action="/Inserir_profissional">
 				<h1>Inscreva-se</h1>
 
-				<span>Preencha as informações:</span>
-				<input type="text" placeholder="Nome" />
-				<input type="text" placeholder="Telefone" />
-				<input type="text" placeholder="Endereço" />
-				<input type="text" placeholder="Cidade" />
-				<input type="text" placeholder="Bairro" />
-				<input type="text" placeholder="CPF" />
-				<input type="email" placeholder="Email" />
-				<input type="password" placeholder="Senha" />
-				<button>Registrar</button>
+				<span>Preencha as informações profissionais:</span>
+				<input type="text" id="nome_profissional" name="nome_profissional" placeholder="Nome" />
+				<input type="number" id="telefone_profissional" name="telefone_profissional" placeholder="Telefone" />
+				<input type="text" id="endereco_profissional" name="endereco_profissional" placeholder="Endereço" />
+				<input type="text" id="cidade_profissional" name="cidade_profissional" placeholder="Cidade" />
+				<input type="text" id="bairro_profissional" name="bairro_profissional" placeholder="Bairro" />
+				<input type="number" id="cpf_profissional" name="cpf_profissional" placeholder="CPF" />
+				<input type="email" id="email_profissional" name="email_profissional" placeholder="Email" />
+				<input type="password" id="senha_profissional" name="senha_profissional" placeholder="Senha" />
+				<button type="submit">Registrar</button>
 			</form>
 		</div>
 		<div class="form-container sign-in-container" style="opacity: 100%;">
-			<form action="#">
-				<h1>Bem vindo!</h1>
-				<div class="social-container">
-					<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-					<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-					<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-					<a href="#" class="social"><i class="fab fa-github"></i></a>
-				</div>
-				<span>Ou use sua conta</span>
-				<input type="email" placeholder="Email" />
-				<input type="password" placeholder="Senha" />
+			<form action="/loginprofissional" method="POST">
+				<h1>Bem vindo Profissional!</h1>
+				<span>Preencha as informações:</span>
+				<input type="email" id="email_profissional" name="email_profissional" placeholder="Email" />
+				<input type="password" id="senha_profissional" name="senha_profissional" placeholder="Senha" />
 				<a href="#">Esqueceu sua senha?</a>
-				<button><a href="/Dashboard">Entrar</a></button>
+				<button type="submit">Entrar</button>
 			</form>
 		</div>
 		<div class="overlay-container" style="opacity: 100%;">
