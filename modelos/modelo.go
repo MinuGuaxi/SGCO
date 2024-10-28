@@ -256,52 +256,6 @@ func Inseriprofissional(nome_profissional string, telefone_profissional int, end
 	defer db.Close()
 }
 
-// AUTENTICAÇÃO DE USUÁRIO
-func Buscarprofissional() []LoginProfissional {
-	db := db.Acesse()
-
-	selectReg, err := db.Query("select * from loginprofissional")
-	if err != nil {
-		panic(err.Error())
-	}
-
-	l := LoginProfissional{}
-	logar := []LoginProfissional{}
-
-	for selectReg.Next() {
-		var id_profissional int
-		var nome_profissional string
-		var telefone_profissional int
-		var endereco_profissional string
-		var cidade_profissional string
-		var bairro_profissional string
-		var cpf_profissional int
-		var email_profissional string
-		var senha_profissional int
-
-		err = selectReg.Scan(&id_profissional, &nome_profissional, &telefone_profissional, &endereco_profissional, &cidade_profissional, &bairro_profissional, &cpf_profissional, &email_profissional, &senha_profissional)
-		if err != nil {
-			panic(err.Error())
-		}
-
-		l.Id_profissional = id_profissional
-		l.Nome_profissional = nome_profissional
-		l.Telefone_profissional = telefone_profissional
-		l.Endereco_profissional = endereco_profissional
-		l.Cidade_profissional = cidade_profissional
-		l.Bairro_profissional = bairro_profissional
-		l.Cpf_profissional = cpf_profissional
-		l.Email_profissional = email_profissional
-		l.Senha_profissional = senha_profissional
-
-		logar = append(logar, l)
-	}
-
-	defer db.Close()
-	return logar
-
-}
-
 // DELETAR USUÁRIO
 func Deletaprofissional(id_profissional string) {
 	db := db.Acesse()
@@ -390,50 +344,6 @@ func InseriProcedimento(nome_procedimento string, data_procedimento string, hora
 	defer db.Close()
 }
 
-// REALIZA UMA BUSCA PELO BANCO DE DADOS
-func BuscarProcedimento() []Procedimento {
-	db := db.Acesse()
-
-	selectReg, err := db.Query("select * from procedimento")
-	if err != nil {
-		panic(err.Error())
-	}
-	//DEFINE A FORMA DE AUTENTICAÇÃO
-	l := Procedimento{}
-	logar := []Procedimento{}
-
-	for selectReg.Next() {
-		var id_procedimento int
-		var nome_procedimento string
-		var data_procedimento string
-		var hora_procedimento string
-		var tipo_procedimento string
-		var valor_procedimento int
-		var profissional_designado string
-		var paciente_id int
-
-		err = selectReg.Scan(&id_procedimento, &nome_procedimento, &data_procedimento, &hora_procedimento, &tipo_procedimento, &valor_procedimento, &profissional_designado, &paciente_id)
-		if err != nil {
-			panic(err.Error())
-		}
-
-		l.Id_procedimento = id_procedimento
-		l.Nome_procedimento = nome_procedimento
-		l.Data_procedimento = data_procedimento
-		l.Hora_procedimento = hora_procedimento
-		l.Tipo_procedimento = tipo_procedimento
-		l.Valor_procedimento = valor_procedimento
-		l.Profissional_Designado = profissional_designado
-		l.Paciente_id = paciente_id
-
-		logar = append(logar, l)
-	}
-
-	defer db.Close()
-	return logar
-
-}
-
 // DELETAR PROCEDIMENTO
 func DeletaProcedimento(id_procedimento string) {
 	db := db.Acesse()
@@ -499,3 +409,87 @@ func AtualizarProcedimento(id_procedimento int, nome_procedimento string, data_p
 	atualiza.Exec(nome_procedimento, data_procedimento, hora_procedimento, tipo_procedimento, valor_procedimento, profissional_designado, id_procedimento)
 	defer db.Close()
 }
+
+func BuscarProcedimento() []Procedimento {
+	db := db.Acesse()
+
+	// Logando quando a função é chamada
+	fmt.Println("Buscando procedimentos no banco de dados.")
+
+	selectReg, err := db.Query("select * from procedimento")
+	if err != nil {
+		fmt.Println("Erro ao buscar procedimentos:", err)
+		panic(err.Error())
+	}
+
+	// Inicializando o slice de procedimentos
+	logar := []Procedimento{}
+
+	for selectReg.Next() {
+		var l Procedimento // Usando diretamente a struct
+
+		err = selectReg.Scan(&l.Id_procedimento, &l.Nome_procedimento, &l.Data_procedimento, &l.Hora_procedimento, &l.Tipo_procedimento, &l.Valor_procedimento, &l.Profissional_Designado, &l.Paciente_id)
+		if err != nil {
+			fmt.Println("Erro ao fazer scan dos registros:", err)
+			panic(err.Error())
+		}
+
+		logar = append(logar, l)
+	}
+
+	defer db.Close()
+
+	// Logando se o retorno foi bem-sucedido
+	fmt.Println("Busca de procedimentos finalizada com sucesso.")
+	return logar
+}
+
+/*
+
+
+// REALIZA UMA BUSCA PELO BANCO DE DADOS
+func BuscarProcedimento() []Procedimento {
+	db := db.Acesse()
+
+	selectReg, err := db.Query("select * from procedimento")
+	if err != nil {
+		panic(err.Error())
+	}
+	//DEFINE A FORMA DE AUTENTICAÇÃO
+	l := Procedimento{}
+	logar := []Procedimento{}
+
+	for selectReg.Next() {
+		var id_procedimento int
+		var nome_procedimento string
+		var data_procedimento string
+		var hora_procedimento string
+		var tipo_procedimento string
+		var valor_procedimento int
+		var profissional_designado string
+		var paciente_id int
+
+		err = selectReg.Scan(&id_procedimento, &nome_procedimento, &data_procedimento, &hora_procedimento, &tipo_procedimento, &valor_procedimento, &profissional_designado, &paciente_id)
+		if err != nil {
+			panic(err.Error())
+		}
+
+		l.Id_procedimento = id_procedimento
+		l.Nome_procedimento = nome_procedimento
+		l.Data_procedimento = data_procedimento
+		l.Hora_procedimento = hora_procedimento
+		l.Tipo_procedimento = tipo_procedimento
+		l.Valor_procedimento = valor_procedimento
+		l.Profissional_Designado = profissional_designado
+		l.Paciente_id = paciente_id
+
+		logar = append(logar, l)
+	}
+
+	defer db.Close()
+	return logar
+
+}
+
+
+*/

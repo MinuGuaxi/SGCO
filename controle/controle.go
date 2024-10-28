@@ -586,44 +586,40 @@ func Tela_Financeiro_Profissional(w http.ResponseWriter, r *http.Request) {
 }
 
 //CENTRAL DE REGISTROS - URL E RENDER
-
 func Central_Registros(w http.ResponseWriter, r *http.Request) {
-	modelo.BuscarProcedimento()
+	// Adicionando log para verificar se a função foi chamada
+	fmt.Println("Acessando a página Central_Registros.")
+
+	procedimentos := modelo.BuscarProcedimento()
 
 	// Recuperar o cookie de sessão
 	cookie, err := r.Cookie("session_token")
 	if err != nil {
-		// Se o cookie não for encontrado, redirecionar para a página de login
 		fmt.Println("Cookie não encontrado:", err)
-		http.Redirect(w, r, "/", http.StatusSeeOther) // Redireciona para a página inicial de login
+		http.Redirect(w, r, "/", http.StatusSeeOther)
 		return
 	}
 
-	// Verificar o valor do cookie (para depuração)
 	fmt.Println("Valor do cookie recebido:", cookie.Value)
 
-	// Se o cookie for válido, carregue os templates
-	tmpl, err := template.ParseFiles("templates/index_profissional.html", "templates/central_registros.html") // Carrega o template base e o específico
+	// Carregando os templates
+	tmpl, err := template.ParseFiles("templates/index_profissional.html", "templates/central_registros.html")
 	if err != nil {
-		// Se houver erro ao carregar os templates
-		http.Error(w, "Erro ao carregar a página", http.StatusInternalServerError)
 		fmt.Println("Erro ao carregar o template:", err)
+		http.Error(w, "Erro ao carregar a página", http.StatusInternalServerError)
 		return
 	}
 
-	// Renderizar a página de configurações usando o template base (index.html)
-	err = tmpl.ExecuteTemplate(w, "index_profissional.html", nil)
+	// Tentando renderizar a página com os dados de procedimentos
+	err = tmpl.ExecuteTemplate(w, "index_profissional.html", procedimentos)
 	if err != nil {
-		// Caso haja um erro ao renderizar o template
-		http.Error(w, "Erro ao renderizar o template", http.StatusInternalServerError)
 		fmt.Println("Erro ao renderizar o template:", err)
+		http.Error(w, "Erro ao renderizar o template", http.StatusInternalServerError)
 		return
 	}
 
-	// Para depuração: Verificar se a página foi renderizada corretamente
-	fmt.Println("Página de configurações renderizada com sucesso.")
+	fmt.Println("Página Central_Registros renderizada com sucesso.")
 }
-
 // FUNÇÕES CRUD - PACIENTE
 
 // Listar pacientes registrados
@@ -866,8 +862,18 @@ func Deletar_Procedimentos(w http.ResponseWriter, r *http.Request) {
 
 // Listar os procedimentos registrados
 func Listar_Procedimentos(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Listando procedimentos registrados.")
 	registros := modelo.BuscarProcedimento()
-	tmp.ExecuteTemplate(w, "/Central_Registros", registros)
+
+	// Tentando renderizar os dados no template
+	err := tmp.ExecuteTemplate(w, "central_registros", registros)
+	if err != nil {
+		fmt.Println("Erro ao renderizar procedimentos:", err)
+		http.Error(w, "Erro ao renderizar procedimentos", http.StatusInternalServerError)
+		return
+	}
+
+	fmt.Println("Procedimentos listados e renderizados com sucesso.")
 }
 
 /*

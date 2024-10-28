@@ -1,5 +1,5 @@
 {{ define "content"}}
-
+<style src="/static/css/configs.css"></style>
 <div class="main-container">
     <section class="main">
             <h1 class="config-tittle">Configurações</h1>
@@ -13,36 +13,59 @@
             </ul>
         </nav>
     </section>  
-    <section class="conteudo-1">
-    <div class="content-1">
-    <h3>ID: 0000000</h2>
-    <p>Telefone: 94981524443</p>
-    <p>Email: teste@gmail.com</p>
-    <p>Endereço: Rua Ernesto Geisel</p>
-    <p>Cidade: Parauapebas</p>
-    <p>Novo Paraiso</p>
-    </div>
-    <div class="content-2">
-    <div class="perfil-circle"><i class="bi bi-image-fill"></i></div>
-    <a href="#"><div class="perfil-circle-btn">Alterar</div></a>
-    </div>
+    <!-- Conteúdo da Conta -->
+    <section class="conteudo-1" id="conta">
+        <div class="content-1">
+            <h3>ID: 0000000</h3>
+            <p>Telefone: 94981524443</p>
+            <p>Email: teste@gmail.com</p>
+            <p>Endereço: Rua Ernesto Geisel</p>
+            <p>Cidade: Parauapebas</p>
+            <p>Bairro: Novo Paraíso</p>
+        </div>
+        <div class="content-2">
+            <div class="perfil-circle"><i class="bi bi-image-fill"></i></div>
+            <a href="#"><div class="perfil-circle-btn">Alterar</div></a>
+        </div>
     </section>
-    <section class="conteudo-2" style="display: none;">
-    <div class="content-3">
-    <h3>ID: 0000000</h2>
-    <p>Telefone: 94981524443</p>
-    <p>Email: teste@gmail.com</p>
-    <p>Endereço: Rua Ernesto Geisel</p>
-    <p>Cidade: Parauapebas</p>
-    <p>Novo Paraiso</p>
-    </div>
-    <div class="content-4">
-    <div class="perfil-circle"><i class="bi bi-image-fill"></i></div>
-    <a href="#"><div class="perfil-circle-btn">Alterar</div></a>
-    </div>
+
+    <!-- Conteúdo do Perfil -->
+    <section class="conteudo-2" id="perfil" style="display: none;">
+        <div class="content-3">
+            <h3>Configurações do Perfil</h3>
+            <p>Detalhes de perfil...</p>
+        </div>
+        <div class="content-4">
+            <div class="perfil-circle"><i class="bi bi-image-fill"></i></div>
+            <a href="#"><div class="perfil-circle-btn">Alterar</div></a>
+        </div>
+    </section>
+
+    <!-- Conteúdo de Segurança -->
+    <section class="conteudo-3" id="seguranca" style="display: none;">
+        <div class="content-5">
+            <h3>Configurações de Segurança</h3>
+            <p>Opções de segurança...</p>
+        </div>
+    </section>
+
+    <!-- Conteúdo Financeiro -->
+    <section class="conteudo-4" id="financeiro" style="display: none;">
+        <div class="content-6">
+            <h3>Configurações Financeiras</h3>
+            <p>Informações financeiras...</p>
+        </div>
+    </section>
+
+    <!-- Conteúdo de Notificações -->
+    <section class="conteudo-5" id="notificacoes" style="display: none;">
+        <div class="content-7">
+            <h3>Configurações de Notificações</h3>
+            <p>Opções de notificação...</p>
+        </div>
     </section>
     
 
 </div>
-
+<script src="/static/js/Sidebar.js"></script>
 {{ end }}

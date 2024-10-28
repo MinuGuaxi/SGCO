@@ -62,21 +62,7 @@ body {
     color: black;
 }
 
-.navbar {
-    background-color: white;
-    height: 10vh;
-    display: flex;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 99%;
-    flex-direction: row;
-}
-.logo{
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-}
+
 
 .main-container {
     border-radius: 10px;
@@ -116,3 +102,4 @@ body {
     text-align: center;
 
 }
+
