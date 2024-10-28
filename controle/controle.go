@@ -585,7 +585,7 @@ func Tela_Financeiro_Profissional(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Página de configurações renderizada com sucesso.")
 }
 
-//CENTRAL DE REGISTROS - URL E RENDER
+// CENTRAL DE REGISTROS - URL E RENDER
 func Central_Registros(w http.ResponseWriter, r *http.Request) {
 	// Adicionando log para verificar se a função foi chamada
 	fmt.Println("Acessando a página Central_Registros.")
@@ -620,6 +620,7 @@ func Central_Registros(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println("Página Central_Registros renderizada com sucesso.")
 }
+
 // FUNÇÕES CRUD - PACIENTE
 
 // Listar pacientes registrados

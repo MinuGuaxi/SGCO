@@ -8,7 +8,7 @@ import (
 func CarregaRotas() {
 	// Geral
 	http.HandleFunc("/", controle.Login)
-	http.Handle("/static/", http.StripPrefix("/static", http.FileServer(http.Dir("static"))))
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	// Paciente
 	http.HandleFunc("/Login_paciente", controle.LoginPaciente)
 	http.HandleFunc("/Dashboard", controle.Tela_Dashboard)
@@ -36,7 +36,9 @@ func CarregaRotas() {
 	// Procedimentos
 	http.HandleFunc("/cadastrar_procedimento", controle.Inserir_Procedimentos)
 	http.HandleFunc("/listar_procedimentos", controle.Listar_Procedimentos)
-
+	http.HandleFunc("/test-css", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./static/css/Sidebar.css")
+	})
 }
 
 //Paciente
