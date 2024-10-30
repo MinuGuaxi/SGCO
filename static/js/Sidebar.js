@@ -1,22 +1,20 @@
-const ConfigNavItem = document.querySelectorAll('.config-nav-item');
-const sections = document.querySelectorAll('section[class^="conteudo-1"]');
+document.addEventListener('DOMContentLoaded', () => {
+    const configNavItems = document.querySelectorAll('.config-nav-item');
+    const sections = document.querySelectorAll('.conteudo-section');
 
-// Função para alternar as seções de acordo com o item de navegação clicado
-ConfigNavItem.forEach(link => {
-    link.addEventListener('click', (event) => {
-        // Remove a classe 'active' de todos os itens de navegação
-        ConfigNavItem.forEach(link => link.classList.remove('active'));
+    // Adiciona o evento de clique para alternar as seções
+    configNavItems.forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
 
-        // Adiciona a classe 'active' ao item de navegação clicado
-        event.target.classList.add('active');
+            // Remove 'active' de todos os itens e seções
+            configNavItems.forEach(item => item.classList.remove('active'));
+            sections.forEach(section => section.classList.remove('active'));
 
-        // Esconde todas as seções
-        sections.forEach(section => {
-            section.classList.remove('active');
+            // Adiciona 'active' ao item clicado e à seção correspondente
+            event.target.classList.add('active');
+            const targetSectionId = event.target.getAttribute('data-config-nav-item');
+            document.getElementById(targetSectionId).classList.add('active');
         });
-
-        // Mostra a seção correspondente ao item de navegação clicado
-        const targetSection = event.target.dataset.configNavItem;
-        document.getElementById(targetSection).classList.add('active');
     });
 });

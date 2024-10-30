@@ -1,6 +1,35 @@
 {{ define "content" }}
-
-<link rel="stylesheet" href="/static/css/Sidebar.css"/>
+<style>
+    .progress {
+      
+      color: white;
+      text-align: center;
+      margin: 120px auto;
+      display: flex;
+      width: 70%;
+      height: 30px;
+      background-color: #e9ecef;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .progress-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      height: 100%;
+      transition: width 0.5s ease;
+    }
+    .progress-bar-1 {
+      background-color: #17a2b8;  /* Cor azul */
+    }
+    .progress-bar-2 {
+      background-color:  #007bff;
+    }
+    .progress-bar-3 {
+      background-color: #36cdf2; /* Cor ciano */
+    }
+  </style>
 
 <div class="main-container">
     <h1 class="config-tittle">Bem vindo(a)!</h1>
@@ -9,23 +38,35 @@
             <div class="card">
                 <i class="fas fa-calendar"></i>
                 <h3>Agendamentos</h3>
-                <p>0</p>
+                <p>3</p>
                 
             </div>
             <div class="card">
                 <i class="fas fa-solid fa-envelope"></i>
                 <h3>Atendimentos</h3>
-                <p>0</p>
+                <p>5</p>
                 
             </div>
             <div class="card">
                 <i class="fas fa-regular fa-clock"></i>
                 <h3>Tratamentos</h3>
-                <p>0</p>
+                <p>2</p>
                 
             </div>
         </div>
+        <div class="progress">
+            <div class="progress-bar progress-bar-1" data-progress="30"><i class="fas fa-calendar"></i>30%</div>
+            <div class="progress-bar progress-bar-2" data-progress="50"><i class="fas fa-solid fa-envelope"></i>50%</div>
+            <div class="progress-bar progress-bar-3" data-progress="20"><i class="fas fa-regular fa-clock"></i>20%</div>
+        </div>
+          
 </section> 
 
 </div>
+<script>
+    document.querySelectorAll('.progress-bar').forEach(bar => {
+      const progress = bar.getAttribute('data-progress');
+      bar.style.width = progress + '%';
+    });
+  </script>
 {{ end }}   

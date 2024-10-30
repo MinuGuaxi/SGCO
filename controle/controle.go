@@ -260,43 +260,36 @@ func Tela_Atendimento(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Página de atendimento renderizada com sucesso.")
 }
 
-// Função para renderizar a pagina calendario com template base
 func Tela_Calendario(w http.ResponseWriter, r *http.Request) {
-	// Recuperar o cookie de sessão
+	procedimentos := modelo.BuscarProcedimento()
 	cookie, err := r.Cookie("session_token")
 	if err != nil {
-		// Se o cookie não for encontrado, redirecionar para a página de login
 		fmt.Println("Cookie não encontrado:", err)
-		http.Redirect(w, r, "/", http.StatusSeeOther) // Redireciona para a página inicial de login
+		http.Redirect(w, r, "/", http.StatusSeeOther)
 		return
 	}
 
-	// Verificar o valor do cookie (para depuração)
 	fmt.Println("Valor do cookie recebido:", cookie.Value)
 
-	// Se o cookie for válido, carregue os templates
-	tmpl, err := template.ParseFiles("templates/index.html", "templates/pacientes/calendario_paciente.html") // Carrega o template base e o específico
+	tmpl, err := template.ParseFiles("templates/index.html", "templates/pacientes/calendario_paciente.html")
 	if err != nil {
-		// Se houver erro ao carregar os templates
-		http.Error(w, "Erro ao carregar a página", http.StatusInternalServerError)
 		fmt.Println("Erro ao carregar o template:", err)
+		http.Error(w, "Erro ao carregar a página", http.StatusInternalServerError)
 		return
 	}
 
-	// Renderizar a página de configurações usando o template base (index.html)
-	err = tmpl.ExecuteTemplate(w, "index.html", nil)
+	// Aqui, "procedimentos" é passado para o template
+	err = tmpl.ExecuteTemplate(w, "index.html", procedimentos)
 	if err != nil {
-		// Caso haja um erro ao renderizar o template
-		http.Error(w, "Erro ao renderizar o template", http.StatusInternalServerError)
 		fmt.Println("Erro ao renderizar o template:", err)
+		http.Error(w, "Erro ao renderizar", http.StatusInternalServerError)
 		return
 	}
 
-	// Para depuração: Verificar se a página foi renderizada corretamente
 	fmt.Println("Página de configurações renderizada com sucesso.")
 }
 
-// Função para renderizar a tela de historico de tratamentos
+// Função para renderizar a tela de histórico de tratamentos
 func Tela_Tratamentos(w http.ResponseWriter, r *http.Request) {
 	// Recuperar o cookie de sessão
 	cookie, err := r.Cookie("session_token")
@@ -310,6 +303,9 @@ func Tela_Tratamentos(w http.ResponseWriter, r *http.Request) {
 	// Verificar o valor do cookie (para depuração)
 	fmt.Println("Valor do cookie recebido:", cookie.Value)
 
+	// Buscar os tratamentos do paciente
+	tratamentos := modelo.BuscarProcedimento() // Certifique-se de que essa função retorne os tratamentos necessários
+
 	// Se o cookie for válido, carregue os templates
 	tmpl, err := template.ParseFiles("templates/index.html", "templates/pacientes/tratamentos_paciente.html") // Carrega o template base e o específico
 	if err != nil {
@@ -319,8 +315,8 @@ func Tela_Tratamentos(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Renderizar a página de configurações usando o template base (index.html)
-	err = tmpl.ExecuteTemplate(w, "index.html", nil)
+	// Renderizar a página de tratamentos usando o template base (index.html)
+	err = tmpl.ExecuteTemplate(w, "index.html", tratamentos) // Passando os tratamentos para o template
 	if err != nil {
 		// Caso haja um erro ao renderizar o template
 		http.Error(w, "Erro ao renderizar o template", http.StatusInternalServerError)
@@ -329,8 +325,9 @@ func Tela_Tratamentos(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Para depuração: Verificar se a página foi renderizada corretamente
-	fmt.Println("Página de configurações renderizada com sucesso.")
+	fmt.Println("Página de tratamentos renderizada com sucesso.")
 }
+
 
 // Tela para renderizar a pagina do Financeiro com o template padrão
 func Tela_Financeiro(w http.ResponseWriter, r *http.Request) {

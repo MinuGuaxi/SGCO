@@ -2,19 +2,6 @@
     box-sizing: border-box;
 }
 
-body {
-    background-color: #00A6A6;
-    margin: 0;
-}
-
-.main-container {
-    border-radius: 10px;
-    width: 85vw;
-    height: auto; /* Alterado para auto para acomodar o conteúdo */
-    background-color: white;
-    padding: 20px; /* Adicionei padding */
-}
-
 .title-calendar {
     margin: 20px 0;
     text-align: center;
@@ -43,8 +30,17 @@ body {
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     font-size: 18px;
+    cursor: pointer; /* Mudar o cursor para indicar que o card é clicável */
+    transition: background-color 0.3s ease; /* Suaviza a transição de cor */
+}
+.day-card:hover {
+    background-color: #e0e0e0; /* Cor ao passar o mouse */
 }
 
+.day-card.selected {
+    background-color: #007bff; /* Cor quando selecionado */
+    color: white; /* Texto branco quando selecionado */
+}
 .calendar-carousel::-webkit-scrollbar {
     display: none; /* Ocultar barra de rolagem */
 }

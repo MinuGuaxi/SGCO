@@ -1,5 +1,136 @@
 {{ define "content" }}
+<style>
 
+    * {
+        box-sizing: border-box;
+    }
+    
+    .title-calendar {
+        margin: 20px 0;
+        text-align: center;
+    }
+    
+    .calendar-carousel {
+        display: flex;
+        justify-content: start;
+        overflow-x: auto; /* Rolar na horizontal */
+        scroll-behavior: smooth; /* Rolar suavemente */
+        padding: 10px 0;
+        background-color: #E0FFFF;
+    }
+    
+    .days {
+        display: flex;
+        gap: 10px; /* Espaço entre os dias */
+        
+    }
+    
+    .day-card {
+        min-width: 100px; /* Largura mínima de cada card */
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #87CEFA;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        font-size: 18px;
+        cursor: pointer; /* Mudar o cursor para indicar que o card é clicável */
+        transition: background-color 0.3s ease; /* Suaviza a transição de cor */
+
+    }
+    .day-card:hover {
+        background-color: #e0e0e0; /* Cor ao passar o mouse */
+    }
+    
+    .day-card.selected {
+        background-color: #007bff; /* Cor quando selecionado */
+        color: white; /* Texto branco quando selecionado */
+    }
+    .calendar-carousel::-webkit-scrollbar {
+        display: block; /* Ocultar barra de rolagem */
+    }
+    
+    .card-body {
+        margin-top: 20px; /* Espaço entre o carrossel e a tabela */
+        background-color: #109797;
+        border-radius: 10px; /* Adicionando bordas arredondadas à tabela */
+    }
+    
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+    
+    .table thead th {
+        background-color: #007bff;
+        color: white;
+        padding: 15px;
+        text-align: left;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    
+    .table tbody td {
+        padding: 15px;
+        border-bottom: 1px solid #ddd;
+        color: #333;
+        text-align: left;
+    }
+    
+    .table tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    
+    .table tbody tr:hover {
+        background-color: #f1f1f1;
+        cursor: pointer;
+    }
+    .main-container{
+
+        height:auto !important;
+    }
+    /* Responsivo */
+    @media (max-width: 768px) {
+        .table, .thead, .tbody, .th, .td, .tr {
+            display: block;
+            width: 100%;
+        }
+    
+        .table thead {
+            display: none; /* Oculta o cabeçalho no mobile */
+        }
+    
+        .table tbody tr {
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+    
+        .table tbody td {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            position: relative;
+            text-align: right;
+        }
+    
+        .table tbody td::before {
+            content: attr(data-label);
+            position: absolute;
+            left: 0;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+    }
+  
+
+</style>
 <div class="main-container">
 
     <div class="main-container">
@@ -58,51 +189,19 @@
                     <th scope="col">Procedimento</th>
                     <th scope="col">Medico</th>
                     <th scope="col">Data</th>
+                    <th scope="col">Hora</th>
                 </tr>
             </thead>
             <tbody>
+                {{range .}}
                 <tr>
-                    <th scope="row">Victoria</th>
-                    <td>Extração dental</td>
-                    <td>Otto</td>
-                    <td>14:30</td>
+                    <th scope="row">{{.Paciente_id}}</th> <!-- Aqui você pode ajustar para exibir o nome do paciente -->
+                    <td>{{.Nome_procedimento}}</td>
+                    <td>{{.Profissional_Designado}}</td>
+                    <td>{{.Data_procedimento}}</td>
+                    <td>{{.Hora_procedimento}}</td>
                 </tr>
-                <tr>
-                    <th scope="row">Jessica</th>
-                    <td>Raio-x Dental</td>
-                    <td>Thor</td>
-                    <td>9:10</td>
-                </tr>
-                <tr>
-                    <th scope="row">Jessica</th>
-                    <td>Limpeza</td>
-                    <td>Carlos Magno</td>
-                    <td>10:00</td>
-                </tr>
-                <tr>
-                    <th scope="row">Jessica</th>
-                    <td>Limpeza</td>
-                    <td>Carlos Magno</td>
-                    <td>10:00</td>
-                </tr>
-                <tr>
-                    <th scope="row">Jessica</th>
-                    <td>Limpeza</td>
-                    <td>Carlos Magno</td>
-                    <td>10:00</td>
-                </tr>
-                <tr>
-                    <th scope="row">Jessica</th>
-                    <td>Limpeza</td>
-                    <td>Carlos Magno</td>
-                    <td>10:00</td>
-                </tr>
-                <tr>
-                    <th scope="row">Jessica</th>
-                    <td>Limpeza</td>
-                    <td>Carlos Magno</td>
-                    <td>10:00</td>
-                </tr>
+                {{end}}
             </tbody>
         </table>
     </div>

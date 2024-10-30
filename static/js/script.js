@@ -48,9 +48,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const messageContent = `
             <div class="conversation-item-side">
-                <img src="sender-avatar-url.jpg" alt="User Avatar">
+                <img src=/static/img/user.png" alt="User Avatar">
             </div>
-            <div class="conversation-item-content">
+            <div class="conversation-item-content" style="width:auto;">
                 <div class="conversation-item-box">
                     <div class="conversation-item-text"><p>${content}</p></div>
                     <div class="conversation-item-time">Agora</div>

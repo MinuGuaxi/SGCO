@@ -1,0 +1,49 @@
+.config-title {
+    text-align: center;
+    padding-top: 1em;
+}
+
+.ul-config-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 0;
+    margin: 0;
+}
+
+.config-nav {
+    background-color: snow;
+    list-style-type: none;
+    cursor: pointer;
+    border-radius: 10px 10px 10px 10px;
+}
+
+.config-nav-item {
+    text-decoration: none;
+    color: black;
+    padding: 10px 20px;
+    display: block;
+}
+
+.config-nav-item.active {
+    background-color: #2ea9be;
+    font-weight: bold;
+    color: white;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Esconde todas as seções inicialmente */
+.conteudo-section {
+    display: none;
+}
+
+/* Exibe apenas a seção ativa */
+.conteudo-section.active {
+    display: block;
+}
+
+
+.conteudo-section{
+    justify-content: space-between;
+    flex-direction: row;
+}

@@ -17,51 +17,19 @@
                                 <th scope="col">Procedimento</th>
                                 <th scope="col">Medico</th>
                                 <th scope="col">Data</th>
+                                <th scope="col">Hora    </th>
                             </tr>
                         </thead>
                         <tbody>
+                            {{range .}}
                             <tr>
-                                <th scope="row">Victoria</th>
-                                <td>Extração dental</td>
-                                <td>Otto</td>
-                                <td>14:30</td>
+                                <th scope="row">{{.Paciente_id}}</th> <!-- Aqui você pode ajustar para exibir o nome do paciente -->
+                                <td>{{.Nome_procedimento}}</td>
+                                <td>{{.Profissional_Designado}}</td>
+                                <td>{{.Data_procedimento}}</td>
+                                <td>{{.Hora_procedimento}}</td>
                             </tr>
-                            <tr>
-                                <th scope="row">Jessica</th>
-                                <td>Raio-x Dental</td>
-                                <td>Thor</td>
-                                <td>9:10</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Jessica</th>
-                                <td>Limpeza</td>
-                                <td>Carlos Magno</td>
-                                <td>10:00</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Jessica</th>
-                                <td>Limpeza</td>
-                                <td>Carlos Magno</td>
-                                <td>10:00</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Jessica</th>
-                                <td>Limpeza</td>
-                                <td>Carlos Magno</td>
-                                <td>10:00</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Jessica</th>
-                                <td>Limpeza</td>
-                                <td>Carlos Magno</td>
-                                <td>10:00</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Jessica</th>
-                                <td>Limpeza</td>
-                                <td>Carlos Magno</td>
-                                <td>10:00</td>
-                            </tr>
+                            {{end}}
                         </tbody>
                     </table>
                 </div>
