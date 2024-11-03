@@ -20,17 +20,17 @@
                                 <th scope="col">Hora    </th>
                             </tr>
                         </thead>
-                        <tbody>
-                            {{range .}}
-                            <tr>
-                                <th scope="row">{{.Paciente_id}}</th> <!-- Aqui você pode ajustar para exibir o nome do paciente -->
-                                <td>{{.Nome_procedimento}}</td>
-                                <td>{{.Profissional_Designado}}</td>
-                                <td>{{.Data_procedimento}}</td>
-                                <td>{{.Hora_procedimento}}</td>
-                            </tr>
-                            {{end}}
-                        </tbody>
+                            <tbody>
+                                {{range .}}
+                                <tr>
+                                    <th scope="row">{{.Paciente_id}}</th> <!-- Aqui você pode ajustar para exibir o nome do paciente -->
+                                    <td>{{.Nome_procedimento}}</td>
+                                    <td>{{.Profissional_Designado}}</td>
+                                    <td>{{.Data_procedimento}}</td>
+                                    <td>{{.Hora_procedimento}}</td>
+                                </tr>
+                                {{end}}
+                            </tbody>
                     </table>
                 </div>
 
