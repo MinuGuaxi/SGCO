@@ -46,24 +46,25 @@
 }
 
 .card-body {
-    width: 70%;
+    width: 90%;
     justify-content: center;
     align-items: center;
     
 
     margin-top: 20px; /* Espaço entre o carrossel e a tabela */
     background-color: #109797;
-    border-radius: 10px; /* Adicionando bordas arredondadas à tabela */
+    border-radius: 10px 10px 10px 10px; /* Adicionando bordas arredondadas à tabela */
 }
 
 .table {
-    width: 70%;
+    width: 100%;
     border-collapse: collapse;
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
 }
+
 
 .table thead th {
     background-color: #007bff;
@@ -124,3 +125,8 @@
     }
 }
 
+.container-table-content{
+    display: flex;
+    justify-content: center;
+    
+}

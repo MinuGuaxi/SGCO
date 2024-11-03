@@ -181,30 +181,34 @@
     
     <!-- Inicio Tabela  -->
     
-    <div class="card-body">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Procedimento</th>
-                    <th scope="col">Medico</th>
-                    <th scope="col">Data</th>
-                    <th scope="col">Hora</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{range .}}
-                <tr>
-                    <th scope="row">{{.Paciente_id}}</th> <!-- Aqui você pode ajustar para exibir o nome do paciente -->
-                    <td>{{.Nome_procedimento}}</td>
-                    <td>{{.Profissional_Designado}}</td>
-                    <td>{{.Data_procedimento}}</td>
-                    <td>{{.Hora_procedimento}}</td>
-                </tr>
-                {{end}}
-            </tbody>
-        </table>
-    </div>
+    <div class="container-table-content">
+
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Procedimento</th>
+                        <th scope="col">Medico</th>
+                        <th scope="col">Data</th>
+                        <th scope="col">Hora    </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{range .}}
+                    <tr>
+                        <th scope="row">{{.Paciente_id}}</th> <!-- Aqui você pode ajustar para exibir o nome do paciente -->
+                        <td>{{.Nome_procedimento}}</td>
+                        <td>{{.Profissional_Designado}}</td>
+                        <td>{{.Data_procedimento}}</td>
+                        <td>{{.Hora_procedimento}}</td>
+                    </tr>
+                    {{end}}
+                </tbody>
+            </table>
+        </div>
+
+    </div> 
     
 
 </div>
