@@ -1,5 +1,5 @@
 {{ define "content" }}
-
+<link rel="stylesheet" href="/static/css/calendario.css" type="text/css" referrerpolicy="origin">
 <div class="main-container">
     <div class="main-historico">
 
@@ -20,17 +20,17 @@
                                 <th scope="col">Hora    </th>
                             </tr>
                         </thead>
-                            <tbody>
-                                {{range .}}
-                                <tr>
-                                    <th scope="row">{{.Paciente_id}}</th> <!-- Aqui você pode ajustar para exibir o nome do paciente -->
-                                    <td>{{.Nome_procedimento}}</td>
-                                    <td>{{.Profissional_Designado}}</td>
-                                    <td>{{.Data_procedimento}}</td>
-                                    <td>{{.Hora_procedimento}}</td>
-                                </tr>
-                                {{end}}
-                            </tbody>
+                        <tbody>
+                            {{range .}}
+                            <tr>
+                                <th scope="row">{{.Paciente_id}}</th> <!-- Aqui você pode ajustar para exibir o nome do paciente -->
+                                <td>{{.Nome_procedimento}}</td>
+                                <td>{{.Profissional_Designado}}</td>
+                                <td>{{.Data_procedimento}}</td>
+                                <td>{{.Hora_procedimento}}</td>
+                            </tr>
+                            {{end}}
+                        </tbody>
                     </table>
                 </div>
 
@@ -39,5 +39,4 @@
     </div>
 </div>
 
-{{ end }}
-
+{{ end }}

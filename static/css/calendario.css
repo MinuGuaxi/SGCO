@@ -46,13 +46,18 @@
 }
 
 .card-body {
+    width: 70%;
+    justify-content: center;
+    align-items: center;
+    
+
     margin-top: 20px; /* Espaço entre o carrossel e a tabela */
     background-color: #109797;
     border-radius: 10px; /* Adicionando bordas arredondadas à tabela */
 }
 
 .table {
-    width: 80%;
+    width: 70%;
     border-collapse: collapse;
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
@@ -89,7 +94,7 @@
 @media (max-width: 768px) {
     .table, .thead, .tbody, .th, .td, .tr {
         display: block;
-        width: 100%;
+        width: 80%;
     }
 
     .table thead {
