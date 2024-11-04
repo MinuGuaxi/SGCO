@@ -46,7 +46,7 @@
 }
 
 .card-body {
-    width: 70%;
+    width: 90%;
     justify-content: center;
     align-items: center;
     
@@ -57,7 +57,7 @@
 }
 
 .table {
-    width: 70%;
+    width: 100%;
     border-collapse: collapse;
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
@@ -125,14 +125,22 @@
 }
 
 .container-table-content{
-    
+    display: flex;
+    justify-content: center;
 }
 
 .container-center{
     display: flex;
-    justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-color: #f1f1f1;
+    justify-content: center;
+    height: 10vh;
+    background-color: #e8faff;
     overflow: hidden;
+
+}
+
+.title-historico{
+    text-align: center;
+    color:rgb(7, 36, 36);
+
 }

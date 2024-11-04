@@ -67,7 +67,7 @@ body {
 .main-container {
     border-radius: 10px;
     width: 85vw;
-    height: 600px;
+    height: 90%;
     background-color: white;
     overflow: hidden;
 }
@@ -98,10 +98,8 @@ body {
     display: flex;
     flex-direction: column;
 }
-.title-historico{
-    text-align: center;
 
-}
 .config-tittle{
     text-align: center;
 }
+
