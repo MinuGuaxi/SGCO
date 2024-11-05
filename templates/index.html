@@ -9,10 +9,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
     <link rel="stylesheet" href="/static/css/Sidebar.css" type="text/css" referrerpolicy="origin">
-   
     <link rel="stylesheet" href="/static/css/Chat.css">
-    <link rel="stylesheet" href="/static/css/calendario.css" type="text/css" referrerpolicy="origin">
-    <link rel="stylesheet" href="/static/css/config.css">
+    <link rel="stylesheet" href="/static/css/calendario.css" type="text/css" referrerpolicy="origin"/>
+    <link rel="stylesheet" href="/static/css/config.css" type="text/css" referrerpolicy="origin"/>
     <link rel="stylesheet" href="/static/css/financeiro.css">
 
     <title>Configurações</title>
@@ -57,6 +56,48 @@
         justify-content: space-between;
     }
 
+    .profile-menu {
+        position: relative;
+    }
+    
+    .profile-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+    
+    .menu-expansivo {
+        display: none; /* Inicialmente oculto */
+        position: absolute;
+        top: 50px;
+        right: 0;
+        background-color: white;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        width: 150px;
+        padding: 10px;
+        z-index: 1;
+    }
+    
+    .menu-expansivo a {
+        display: flex;
+        align-items: center;
+        color: black;
+        padding: 8px;
+        text-decoration: none;
+        font-size: 14px;
+    }
+    
+    .menu-expansivo a:hover {
+        background-color: #f0f0f0;
+        border-radius: 5px;
+    }
+    
+    .menu-expansivo i {
+        margin-right: 8px;
+    }
+    
 
 </style>
 <body>
@@ -70,12 +111,21 @@
                         <img class="logo" src="/static/img/logo_dental.png" alt="logo"/>
                     </a>
                 </li>   
-                <li class="li-nav-item" style="margin-left: 100%; align-items: center; display: flex;">
-                      
-                    <a href="/">
-                        <i class="bi bi-door-open-fill" style="font-size: 20px; color: black;"></i>
+                <li class="li-nav-item" style="margin-left: 90%; align-items: center; display: flex;">
+                    <div class="profile-menu">
+                    <img src="/static/img/user.png" class="profile-icon" onclick="toggleMenu()"/>
+                    <div class="menu-expansivo" id="menuExpansivo">
+
+                    <a class="nav-item" href="/Config">
+                        <i class="bi bi-sliders"> Configurações</i>
                     </a>
-                    <span>Sair</span> 
+
+                    <a href="/">
+                        <i class="bi bi-door-open-fill" style="font-size: 20px; color: black;">Sair</i>
+                    </a>
+
+                    </div>
+                    </div>
                 </li>
             </ul>
         </nav>
@@ -119,11 +169,7 @@
                         </a>
                     </li>
                     <!--CONFIGURAÇÕES-->
-                    <li class="li-nav-item nav-item-3">
-                        <a class="nav-item" href="/Config">
-                            <i class="bi bi-sliders"></i>
-                        </a>
-                    </li>
+
                 </ul>
             </nav>
             <!-- Fim da SIDEBAR-->
@@ -136,8 +182,21 @@
 
 </div>    
 </div>
-<script src="/static/js/Sidebar.js"></script>
-<script src="/static/js/calendario.js"></script>
+
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById("menuExpansivo");
+        menu.style.display = menu.style.display === "block" ? "none" : "block";
+    }
+
+    // Fechar o menu ao clicar fora dele
+    window.onclick = function(event) {
+        const menu = document.getElementById("menuExpansivo");
+        if (!event.target.matches('.profile-icon') && menu.style.display === "block") {
+            menu.style.display = "none";
+        }
+    }
+</script>
 
 
 </body>

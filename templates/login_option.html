@@ -220,6 +220,8 @@
 			font-family: "Rubik", sans-serif;
 			transition: color 600ms;
 		}
+
+
 	</style>
 </head>
 
@@ -228,13 +230,14 @@
 
 		<div class="form-container sign-in-container" style="opacity: 100%;">
 			<form action="#">
+				<img style="width:37%;" src="/static/img/logo_dental.png"/>
 				<h1>Bem vindo!</h1>
 				<div class="social-container">
                     <p>Escolha seu tipo de usuário:</p>
 				</div>
                 <div class="botões">
-				<button style="margin-right: 20px;"><a href="/Login_paciente">Paciente</a></button>
-                <button><a href="/Login_profissional">Profissional</a></button>
+				<button type="submit" style="margin-right: 20px;" formaction="/Login_paciente"><a>Paciente</a></button>
+                <button type="submit" formaction="/Login_profissional"><a>Profissional</a></button>
                 </div>
 			</form>
 		</div>

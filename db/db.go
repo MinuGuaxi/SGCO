@@ -16,7 +16,7 @@ func Acesse() *sql.DB {
 
 	//criar uma variavel chamada(conexao) e realiza a verificação se os dados
 	//De conexao estão corretos
-	var conexao = "user=postgres dbname=sgco host=localhost password=123 sslmode=disable"
+	var conexao = "user=postgres dbname=sgco host=localhost password=1234 sslmode=disable"
 
 	// criar uma variavel chamada(db e err) e abrir uma conexao com o
 	//banco de dados postgresql

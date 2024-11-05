@@ -32,18 +32,3 @@
     transition: background-color 0.3s ease-in-out;
 }
 
-/* Esconde todas as seções inicialmente */
-.conteudo-section {
-    display: none;
-}
-
-/* Exibe apenas a seção ativa */
-.conteudo-section.active {
-    display: block;
-}
-
-
-.conteudo-section{
-    justify-content: space-between;
-    flex-direction: row;
-}

@@ -1,265 +1,203 @@
 {{ define "content" }}
 
 <style>
-
-    .conteudo-section-controller{
-        margin: 20px auto;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-direction: row;
-        width: 50%;
+    /* Estilos Gerais */
+    .main-container {
+        width: 175vh;
+        height: 100vh;
+        overflow-y: auto; /* Habilita rolagem vertical */
     }
-    .config-nav{
-        border-radius: 10px 10px 10px 10px;
-    }
-    .config-nav-item{
-        border-radius: 10px 10px 10px 10px;
-    }
-
-    .config-nav-item.active {
-        background-color: #2ea9be;
-    }
-    .perfil-circle {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        background-color: #2ea9be;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-right: 10px;
-    }
-    
-    .perfil-circle-btn {
+    .config-title {
         text-align: center;
-        width: 120px;
-        height: 35px;
-        background-color: #2ea9be;
-        color: white;
-        border-radius: 15px;
-        font-size: 30px;
+        padding: 20px;
+    }
+    .conteudo-config {
+        padding: 20px;
+        border-bottom: 1px solid #ddd;
+    }
+    .conteudo-config h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    /* Estilos de Conta */
+    .table-conta {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .table-conta th, .table-conta td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    /* Estilos de Perfil */
+    .form-perfil {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .form-perfil label {
+        margin: 5px 0;
+    }
+    .form-perfil input {
+        margin: 5px 0 15px;
+        padding: 8px;
+        width: 100%;
+    }
+
+    /* Estilos de Segurança */
+    .form-seguranca {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .form-seguranca label {
+        margin-bottom: 10px;
+    }
+    .form-seguranca input[type="submit"] {
+        margin-top: 15px;
+        padding: 8px 20px;
         cursor: pointer;
-        margin-top: 10px;
-    }
-    .content-2{
-        margin-top: 10px;
-        flex-direction: column;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-    }
-    .content-4{
-        margin-top: 10px;
-        flex-direction: column;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
     }
 
-    <!-- Switch -->
-    center-container-controller{
-        flex-direction: column;
+    /* Estilos de Financeiro */
+    .form-financeiro {
         display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .form-financeiro label {
+        margin-bottom: 10px;
+    }
+    .form-financeiro select {
+        padding: 8px;
+        width: 100%;
     }
 
-    /* Container para centralizar o botão */
+    /* Estilos de Notificações */
     .center-container {
         display: flex;
-        justify-content: start;
-        align-items: start;
-        height: 10vh;
         flex-direction: column;
-
+        align-items: center;
+        margin: 15px 0;
     }
-    
-    /* Estilos do botão de alternância */
-    .toggle-switch {
-        position: relative;
-        display: inline-block;
-        width: 110px;
-        height: 30px;
-    }
-    
-    .toggle-switch input {
-        display: none; /* Oculta o input */
-    }
-    
-    .toggle-label {
-        position: relative;
-        display: block;
-        width: 100%;
-        height: 100%;
-        background-color: #ccc;
-        border-radius: 15px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-    
-    .toggle-inner {
-        position: absolute;
-        width: 26px;
-        height: 26px;
-        border-radius: 50%;
-        background-color: white;
-        top: 2px;
-        left: 2px;
-        transition: transform 0.3s ease;
-    }
-    
-    /* Estado do botão ligado */
-    input:checked + .toggle-label {
-        background-color: #4caf50;
-    }
-    
-    input:checked + .toggle-label .toggle-inner {
-        transform: translateX(80px);
-    }
-    
-    /* Texto de status */
-    .toggle-switch-text {
-        display: block;
-        text-align: center;
-        font-size: 14px;
-        color: black;
-        margin-top: 10px;
-    }
-    
-
 </style>
+
 <div class="main-container">
-    <section class="main">
-        <h1 class="config-title">Configurações</h1>
-        <nav class="main-nav">
-            <ul class="ul-config-nav">
-                <li class="config-nav"><a href="#" class="config-nav-item active" data-config-nav-item="conta">CONTA</a></li>
-                <li class="config-nav"><a href="#" class="config-nav-item" data-config-nav-item="perfil">PERFIL</a></li>
-                <li class="config-nav"><a href="#" class="config-nav-item" data-config-nav-item="seguranca">SEGURANÇA</a></li>
-                <li class="config-nav"><a href="#" class="config-nav-item" data-config-nav-item="financeiro">FINANCEIRO</a></li>
-                <li class="config-nav"><a href="#" class="config-nav-item" data-config-nav-item="notificacoes">NOTIFICAÇÕES</a></li>         
-            </ul>
-        </nav>
-    </section>  
+    <h1 class="config-title">Configurações</h1>
 
-    <!-- Conteúdo da Conta -->
-    <section class="conteudo-section active" id="conta">
-    <div class="conteudo-section-controller">
-        <div class="content-1">
-            <h3>ID: 0000000</h3>
-            <p>Telefone: 94981524443</p>
-            <p>Email: teste@gmail.com</p>
-            <p>Endereço: Rua Ernesto Geisel</p>
-            <p>Cidade: Parauapebas</p>
-            <p>Bairro: Novo Paraíso</p>
-        </div>
-        <div class="content-2">
-            <div class="perfil-circle"><i class="bi bi-image-fill"></i></div>
-            <div class="perfil-circle-btn">Gratuito</div>
-        </div>
-    </div>
+    <!-- Seção Conta -->
+    <section class="conteudo-config" id="conta">
+        <h2>Conta</h2>
+        <table class="table-conta">
+            <tr>
+                <th>ID</th>
+                <th>Telefone</th>
+                <th>Email</th>
+                <th>Endereço</th>
+                <th>Cidade</th>
+                <th>Bairro</th>
+            </tr>
+            <tr>
+                <td>0000001</td>
+                <td>(11) 99999-9999</td>
+                <td>email@exemplo.com</td>
+                <td>Rua Exemplo, 123</td>
+                <td>São Paulo</td>
+                <td>Centro</td>
+            </tr>
+        </table>
     </section>
 
-    <!-- Conteúdo do Perfil -->
-    <section class="conteudo-section" id="perfil">
-    <div class="conteudo-section-controller">
-        <div class="content-3">
-            <h3>Configurações do Perfil</h3>
-            <h3>ID: 0000000</h3>
-            <p>Telefone: 94981524443</p>
-            <p>Email: teste@gmail.com</p>
-            <p>Endereço: Rua Ernesto Geisel</p>
-            <p>Cidade: Parauapebas</p>
-            <p>Bairro: Novo Paraíso</p>
-        </div>
-        <div class="content-4">
-            <div class="perfil-circle"><i class="bi bi-image-fill"></i></div>
-            <div class="perfil-circle-btn">Gratuito</div>
-        </div>
-    </div>
+    <!-- Seção Perfil -->
+    <section class="conteudo-config" id="perfil">
+        <h2>Perfil</h2>
+        <form class="form-perfil">
+            <label for="perfil-id">ID</label>
+            <input type="text" id="perfil-id" placeholder="0000001" />
+
+            <label for="perfil-telefone">Telefone</label>
+            <input type="tel" id="perfil-telefone" placeholder="(11) 99999-9999" />
+
+            <label for="perfil-email">Email</label>
+            <input type="email" id="perfil-email" placeholder="email@exemplo.com" />
+
+            <label for="perfil-endereco">Endereço</label>
+            <input type="text" id="perfil-endereco" placeholder="Rua Exemplo, 123" />
+
+            <label for="perfil-cidade">Cidade</label>
+            <input type="text" id="perfil-cidade" placeholder="São Paulo" />
+
+            <label for="perfil-bairro">Bairro</label>
+            <input type="text" id="perfil-bairro" placeholder="Centro" />
+        </form>
     </section>
 
-    <!-- Conteúdo de Segurança -->
-    <section class="conteudo-section" id="seguranca">
-    <div class="conteudo-section-controller">
-        <div class="content-5">
-            <h3>Configurações de Segurança</h3>
-            <p>Redefinição de senha:</p>
-            <form style="display: flex; flex-direction:column;">
-            <label for="nova_senha">Senha do paciente</label>
-            <input type="text" id="nova_senha" placeholder="Insira sua nova senha!" />
+    <!-- Seção Segurança -->
+    <section class="conteudo-config" id="seguranca">
+        <h2>Opções de Segurança</h2>
+        <h3 style="text-align: center;">Redefinição de Senha</h3>
+        <form class="form-seguranca">
+            <label for="nova_senha">Definir Senha</label>
+            <input type="password" id="nova_senha" placeholder="Insira sua nova senha" />
             <input type="submit" value="Salvar" />
-            </form>
-        </div>
-    </div>
+        </form>
     </section>
 
-    <!-- Conteúdo Financeiro -->
-    <section class="conteudo-section" id="financeiro">
-    <div class="conteudo-section-controller">
-        <div class="content-6">
-            <h3>Configurações Financeiras</h3>
-            <form id="financeiro_op">
-                <label for="op_fin">Escolha sua forma de pagamento:</label>
-                <select name="op_fin" id="op_fin" form="financeiro_op">
-                <option value="">Pix</option>
-                <option value="">Boleto</option>
-                </select>
-            </form>
-        </div>
-    </div>
+    <!-- Seção Financeiro -->
+    <section class="conteudo-config" id="financeiro">
+        <h2>Financeiro</h2>
+        <h3 style="text-align: center;">Opções de Pagamento</h3>
+        <form class="form-financeiro">
+            <label for="opcoes-pagamento">Escolha sua forma de pagamento</label>
+            <select id="opcoes-pagamento">
+                <option value="none">None</option>
+                <option value="pix">Pix</option>
+                <option value="boleto">Boleto</option>
+            </select>
+        </form>
     </section>
 
-    <!-- Conteúdo de Notificações -->
-    <section class="conteudo-section" id="notificacoes">
-        <h4 style="text-align:center;">Configuração de Notificacões</h4>
-    <div class="conteudo-section-controller">
-        <div class="content-7">
-            <div class="center-container-controller">
-                <!-- Switch 1 -->
-                <div class="center-container">
-                    <label for="toggle1">Sistema de Notificações</label>
-                    <div class="toggle-switch">
-                        <input type="checkbox" id="toggle1" />
-                        <label for="toggle1" class="toggle-label">
-                            <span class="toggle-inner"></span>
-                            <span class="toggle-switch-text" id="toggle-text1">Desligado</span>
-                        </label>
-                    </div>
-                </div>
-            
-                <!-- Switch 2 -->
-                <div class="center-container">
-                    <label for="toggle2">Atualizações Automáticas</label>
-                    <div class="toggle-switch">
-                        <input type="checkbox" id="toggle2" />
-                        <label for="toggle2" class="toggle-label">
-                            <span class="toggle-inner"></span>
-                            <span class="toggle-switch-text" id="toggle-text2">Desligado</span>
-                        </label>
-                    </div>
-                </div>
-            
-                <!-- Switch 3 -->
-                <div class="center-container">
-                    <label for="toggle3">Modo Escuro</label>
-                    <div class="toggle-switch">
-                        <input type="checkbox" id="toggle3" />
-                        <label for="toggle3" class="toggle-label">
-                            <span class="toggle-inner"></span>
-                            <span class="toggle-switch-text" id="toggle-text3">Desligado</span>
-                        </label>
-                    </div>
-                </div>
+    <!-- Seção Notificações -->
+    <section class="conteudo-config" id="notificacoes">
+        <h2>Central de Notificações</h2>
+        <div class="center-container">
+            <label for="toggle1">Sistema de Notificações</label>
+            <div class="toggle-switch">
+                <input type="checkbox" id="toggle1" />
+                <label for="toggle1" class="toggle-label">
+                    <span class="toggle-inner"></span>
+                    <span class="toggle-switch-text" id="toggle-text1">Desligado</span>
+                </label>
             </div>
-            
-            
         </div>
-    </div>
+
+        <div class="center-container">
+            <label for="toggle2">Atualizações Automáticas</label>
+            <div class="toggle-switch">
+                <input type="checkbox" id="toggle2" />
+                <label for="toggle2" class="toggle-label">
+                    <span class="toggle-inner"></span>
+                    <span class="toggle-switch-text" id="toggle-text2">Desligado</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="center-container">
+            <label for="toggle3">Modo Escuro</label>
+            <div class="toggle-switch">
+                <input type="checkbox" id="toggle3" />
+                <label for="toggle3" class="toggle-label">
+                    <span class="toggle-inner"></span>
+                    <span class="toggle-switch-text" id="toggle-text3">Desligado</span>
+                </label>
+            </div>
+        </div>
     </section>
 </div>
-<script >
+
+<script>
     document.addEventListener('DOMContentLoaded', () => {
         const toggles = [
             { inputId: 'toggle1', textId: 'toggle-text1' },
@@ -276,8 +214,6 @@
             });
         });
     });
-    
-    
 </script>
 
 {{ end }}
