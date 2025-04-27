@@ -6,6 +6,7 @@
         width: 175vh;
         height: 100vh;
         overflow-y: auto; /* Habilita rolagem vertical */
+    
     }
     .config-title {
         text-align: center;
@@ -82,6 +83,113 @@
         align-items: center;
         margin: 15px 0;
     }
+
+    
+    /* Estilos do botão de alternância */
+    .toggle-switch {
+        position: relative;
+        display: inline-block;
+        width: 110px;
+        height: 30px;
+    }
+    
+    .toggle-switch input {
+        display: none; /* Oculta o input */
+    }
+    
+    .toggle-label {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-color: #ccc;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    
+    .toggle-inner {
+        position: absolute;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background-color: white;
+        top: 2px;
+        left: 2px;
+        transition: transform 0.3s ease;
+    }
+    
+    /* Estado do botão ligado */
+    input:checked + .toggle-label {
+        background-color: #4caf50;
+    }
+    
+    input:checked + .toggle-label .toggle-inner {
+        transform: translateX(80px);
+    }
+    
+    /* Texto de status */
+    .toggle-switch-text {
+        display: block;
+        text-align: center;
+        font-size: 14px;
+        color: black;
+        margin-top: 10px;
+    }
+    
+x    /* Estilos da seção Conta */
+.account-details {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+.account-detail-item {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 10px 0;
+}
+.account-detail-item:last-child {
+    border-bottom: none;
+}
+.account-detail-label {
+    font-weight: bold;
+    color: #666;
+}
+.account-detail-value {
+    color: #333;
+    text-align: right;
+}
+
+
+/* Estilos do formulário de Perfil */
+.form-perfil {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    max-width: 80vw;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.form-perfil label {
+    margin: 10px 0 5px;
+    font-weight: bold;
+    color: #333;
+}
+.form-perfil input {
+    padding: 8px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
 </style>
 
 <div class="main-container">
@@ -90,24 +198,32 @@
     <!-- Seção Conta -->
     <section class="conteudo-config" id="conta">
         <h2>Conta</h2>
-        <table class="table-conta">
-            <tr>
-                <th>ID</th>
-                <th>Telefone</th>
-                <th>Email</th>
-                <th>Endereço</th>
-                <th>Cidade</th>
-                <th>Bairro</th>
-            </tr>
-            <tr>
-                <td>0000001</td>
-                <td>(11) 99999-9999</td>
-                <td>email@exemplo.com</td>
-                <td>Rua Exemplo, 123</td>
-                <td>São Paulo</td>
-                <td>Centro</td>
-            </tr>
-        </table>
+        <div class="account-details">
+            <div class="account-detail-item">
+                <span class="account-detail-label">ID</span>
+                <span class="account-detail-value">0000001</span>
+            </div>
+            <div class="account-detail-item">
+                <span class="account-detail-label">Telefone</span>
+                <span class="account-detail-value">(11) 99999-9999</span>
+            </div>
+            <div class="account-detail-item">
+                <span class="account-detail-label">Email</span>
+                <span class="account-detail-value">email@exemplo.com</span>
+            </div>
+            <div class="account-detail-item">
+                <span class="account-detail-label">Endereço</span>
+                <span class="account-detail-value">Rua Exemplo, 123</span>
+            </div>
+            <div class="account-detail-item">
+                <span class="account-detail-label">Cidade</span>
+                <span class="account-detail-value">São Paulo</span>
+            </div>
+            <div class="account-detail-item">
+                <span class="account-detail-label">Bairro</span>
+                <span class="account-detail-value">Centro</span>
+            </div>
+        </div>
     </section>
 
     <!-- Seção Perfil -->

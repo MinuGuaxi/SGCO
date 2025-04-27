@@ -47,10 +47,11 @@ document.addEventListener('DOMContentLoaded', function () {
         if (isSender) messageWrapper.classList.add('me');
 
         const messageContent = `
+         
             <div class="conversation-item-side">
                 <img src="/static/img/user.png" alt="User Avatar">
             </div>
-            <div class="conversation-item-content" style="width:auto;">
+            <div class="conversation-item-content">
                 <div class="conversation-item-box">
                     <div class="conversation-item-text"><p>${content}</p></div>
                     <div class="conversation-item-time">Agora</div>
